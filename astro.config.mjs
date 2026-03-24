@@ -8,7 +8,7 @@ import tailwindcss from "@tailwindcss/vite";
 // https://astro.build/config
 export default defineConfig({
   site: "https://fatibuulolo0.github.io",
-  base: "/space-ahead",
+  base: "/myPortfolio",
   integrations: [
     swup({
       theme: ["overlay", { direction: "to-top" }],
