@@ -81,11 +81,11 @@ const siteConfig: SiteConfig = {
             href: withBase('/')
         },
         {
-            text: 'Blog',
+            text: 'Skills',
             href: withBase('/blog')
         },
         {
-            text: 'Tags',
+            text: 'Projects',
             href: withBase('/tags')
         },
         {
@@ -96,42 +96,24 @@ const siteConfig: SiteConfig = {
             text: 'Contact',
             href: withBase('/contact')
         }
-    ],
-    footerNavLinks: [
-        {
-            text: 'About',
-            href: withBase('/about')
-        },
-        {
-            text: 'Contact',
-            href: withBase('/contact')
-        },
-        {
-            text: 'RSS Feed',
-            href: withBase('/rss.xml')
-        },
-                {
-            text: 'Sitemap',
-            href: withBase('/sitemap-index.xml')
-        }
-    ],
+    ],   
     socialLinks: [
         {
-            text: 'Dribbble',
-            href: 'https://dribbble.com/'
+            text: 'GitHub',
+            href: 'https://github.com/FatiBuuloloo'
         },
         {
             text: 'Instagram',
-            href: 'https://instagram.com/'
+            href: 'https://www.instagram.com/fatibuulolo/'
         },
         {
-            text: 'X/Twitter',
-            href: 'https://twitter.com/'
+            text: 'LinkedIn',
+            href: 'https://www.linkedin.com/in/fati-buulolo-7a9236391/'
         }
     ],
     hero: {
         eyebrowText: 'Galaxy of Adventures',
-        title: 'Space Ahead ✨',
+        title: 'Fati Buulolo',
         text: "Written by Astro-naut Sid, a space explorer at Beyond Earth.",
         image: {
             src: '/assets/images/pixeltrue-space-discovery.svg',
@@ -141,11 +123,7 @@ const siteConfig: SiteConfig = {
             {
                 text: 'Read Now',
                 href: withBase('/blog')
-            },
-            {
-                text: 'Subscribe',
-                href: '#subscribe'
-            }
+            }          
         ]
     },
     about: {
@@ -157,29 +135,20 @@ const siteConfig: SiteConfig = {
         text: "Hi! Whether you have a question, a suggestion, or just want to share your thoughts, I'm all ears. Feel free to get in touch through any of the methods below:",
         email: {
             text: "Drop me an email and I’ll do my best to respond as soon as possible.",
-            href: "mailto:example@example.com",
-            email: "example@example.com"
+            href: "mailto:fatibuulolo2@yahoo.com",
+            email: "yahoo.com"
         },
         socialProfiles: [
             {
                 text: "LinkedIn",
-                href: "https://www.linkedin.com/"
-            },
-            {
-                text: "Peerlist",
-                href: "https://www.peerlist.io/"
+                href: "https://www.linkedin.com/in/fati-buulolo-7a9236391/"
             },
             {
                 text: "GitHub",
-                href: "https://github.com/"
+                href: "https://github.com/FatiBuuloloo"
             }
         ]
-    },
-    subscribe: {
-        title: 'Subscribe to Space Ahead',
-        text: 'One update per week. All the latest stories in your inbox.',
-        formUrl: '#'
-    },
+    },    
     blog: {
         description: "Read about my space adventures, explorations and the aliens I've met on my journeys."
     },
