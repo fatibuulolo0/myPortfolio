@@ -26,7 +26,6 @@ const {
     <link rel="icon" href={withBase(`/space-ahead-logo.png`)} />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <link rel="sitemap" href={withBase(`/sitemap-index.xml`)} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -41,12 +40,4 @@ const {
     />
     <title>{pageTitle}</title>
   </head>
-  <body>
-    <main class="max-w-3xl mx-auto min-h-screen">
-      <Nav activePage={activePage} />
-      <slot />
-      {showSubscribeForm && <Subscribe class="my-12 w-full" />}
-      <Footer />
-    </main>
-  </body>
 </html>
