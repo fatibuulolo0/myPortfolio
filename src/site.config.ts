@@ -112,7 +112,7 @@ const siteConfig: SiteConfig = {
         }
     ],
     hero: {
-        eyebrowText: 'Galaxy of Adventures',
+        //eyebrowText: 'Galaxy of Adventures',
         title: 'Fati Buulolo',
         text: "Written by Astro-naut Sid, a space explorer at Beyond Earth.",
         image: {
@@ -135,8 +135,8 @@ const siteConfig: SiteConfig = {
         text: "Hi! Whether you have a question, a suggestion, or just want to share your thoughts, I'm all ears. Feel free to get in touch through any of the methods below:",
         email: {
             text: "Drop me an email and I’ll do my best to respond as soon as possible.",
-            href: "mailto:fatibuulolo2@yahoo.com",
-            email: "yahoo.com"
+            href: "mailto:yahoo.com",
+            email: "fatibuulolo2@yahoo.com"
         },
         socialProfiles: [
             {
