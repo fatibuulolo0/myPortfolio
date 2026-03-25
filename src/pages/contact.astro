@@ -2,21 +2,13 @@
 import { Image } from "astro:assets";
 import MainLayout from "../layouts/MainLayout.astro";
 import siteConfig from "../site.config";
-import coverImage from "../assets/images/profile_picture.png";
+//import coverImage from "../assets/images/profile_picture.png";
 ---
 
 <MainLayout activePage="contact" pageTitle={siteConfig.title + " | Contact"}>
   <div class="page-content">
     <h1 class="sigmar-ff text-balance">{siteConfig.contactInfo?.title}</h1>
-    <Image
-      width={300}
-      height={400}
-      loading="eager"
-      layout="fixed"
-      class="rounded-4xl mb-8 mx-auto"
-      src={coverImage}
-      alt="Space envelop"
-    />
+
     <div class="flex flex-col">
       <!-- <Image width={1024} height={600} loading="eager" layout="constrained" class="rounded-4xl mb-8 mx-auto" src={coverImage} alt="An Astronaut walking on a terrain"/> -->
       <p class="font-light text-left text-balance">
