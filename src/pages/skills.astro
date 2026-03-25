@@ -17,16 +17,18 @@ const skills = [
   <div class="page-content">
     <h1 class="sigmar-ff text-center pt-8 pb-2">Skills</h1>
     <p class="kanit-light text-center mb-12 text-sm">Tools and technologies I work with</p>
+    
     <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-6 px-4 pb-16">
       {skills.map(skill => (
         <div class="flex flex-col items-center gap-3 group cursor-default">
-          <div class="w-20 h-20 rounded-2xl bg-white/60 dark:bg-gray-800/60 flex items-center justify-center p-3 shadow-sm group-hover:scale-110 transition-transform duration-200">
+          <div class="w-20 h-20 rounded-2xl bg-white/60 dark:bg-gray-800/60 flex items-center justify-center p-3 shadow-sm transition-all duration-200">
             <img
               src={skill.icon}
               alt={skill.name}
               width="56"
               height="56"
               loading="lazy"
+              class="group-hover:animate-jedag-jedut" 
             />
           </div>
           <span class="kanit-regular text-xs sm:text-sm text-center">{skill.name}</span>
@@ -35,3 +37,23 @@ const skills = [
     </div>
   </div>
 </MainLayout>
+
+<style>
+  /* Definisi animasi jedag-jedut */
+  @keyframes jedag-jedut {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2); /* Membesar */
+    }
+  }
+
+  .group-hover\:animate-jedag-jedut {
+    /* Animasi hanya jalan saat parent (group) di-hover */
+  }
+
+  .group:hover .group-hover\:animate-jedag-jedut {
+    animation: jedag-jedut 0.6s infinite ease-in-out;
+  }
+</style>
