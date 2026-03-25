@@ -114,7 +114,7 @@ const siteConfig: SiteConfig = {
     hero: {
         //eyebrowText: 'Galaxy of Adventures',
         title: 'Fati Buulolo',
-        text: "Written by Astro-naut Sid, a space explorer at Beyond Earth.",
+        text: "Mathematics Fresh Graduate",
         image: {
             src: '/assets/images/pixeltrue-space-discovery.svg',
             alt: 'A person sitting at a desk in front of a computer'
@@ -128,7 +128,7 @@ const siteConfig: SiteConfig = {
     },
     about: {
         title: 'About',
-        text: 'Space Ahead is a blog about space exploration and travel. It is written by Astro-naut Sid, a space explorer at Beyond Earth. Sid is known for his love of adventure and his insatiable curiosity about the universe. He has explored countless planets, discovered new life forms, and made friends with aliens along the way. 🚀',
+        text: 'Mathematics Graduate | Data Science & Deep Learning Enthusiast. Recently graduated from Universitas Negeri Medan, I possess a deep interest in transforming complex data into actionable insights. My focus is on mastering Data Science and Machine Learning to achieve my goal of becoming a professional in the Data and AI field. I am eager to start my journey by contributing to impactful projects and solving real-world problems through advanced analytics.',
     },
     contactInfo: {
         title: 'Contact',
