@@ -5,24 +5,28 @@ import siteConfig from "../site.config";
 import { sortItemsByDateDesc, withBase } from "../utils/helpers";
 
 const allProjects = (await getCollection("blogs")).sort(sortItemsByDateDesc);
+
+const projectsWithHref = allProjects.map(project => ({
+  ...project,
+  href: withBase("/blog/" + project.id)
+}));
 ---
 
 <MainLayout activePage="projects" pageTitle={siteConfig.title + " | Projects"}>
   <div class="page-content">
     <h1 class="sigmar-ff text-center pt-8 pb-2">Projects</h1>
-    <p class="kanit-light text-center mb-12 text-sm">Things I've built & worked on</p>
-
+    <p class="kanit-light text-center mb-12 text-sm">Things I have built and worked on</p>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 px-4 pb-16">
-      {allProjects.map(project =>
+      {projectsWithHref.map(project =>
         
-          href={withBase("/blog/" + project.id)}
+          href={project.href}
           class="group block rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-200 no-underline"
         >
           {project.data.image &&
             <div class="overflow-hidden h-48">
               <img
                 src={project.data.image.src}
-                alt={project.data.image.alt || project.data.title}
+                alt={project.data.title}
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </div>
