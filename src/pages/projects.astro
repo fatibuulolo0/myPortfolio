@@ -1,24 +1,24 @@
 ---
 import { getCollection } from "astro:content";
 import MainLayout from "../layouts/MainLayout.astro";
+import siteConfig from "../site.config";
 import { sortItemsByDateDesc, withBase } from "../utils/helpers";
 
-// Mengambil semua post dari content/blogs - otomatis tersinkron dengan Home!
 const allProjects = (await getCollection("blogs")).sort(sortItemsByDateDesc);
 ---
 
-<MainLayout activePage="projects" pageTitle="Projects | Portofolio">
+<MainLayout activePage="projects" pageTitle={siteConfig.title + " | Projects"}>
   <div class="page-content">
-    <h1 class="sigmar-ff text-center pt-8 pb-4">Projects</h1>
-    <p class="text-center kanit-light mb-12">Things I've built & worked on</p>
+    <h1 class="sigmar-ff text-center pt-8 pb-2">Projects</h1>
+    <p class="kanit-light text-center mb-12 text-sm">Things I've built & worked on</p>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 px-4 pb-16">
-      {allProjects.map((project) => (
+      {allProjects.map(project =>
         
-          href={withBase(`/blog/${project.slug}`)}
-          class="group block rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-200"
+          href={withBase("/blog/" + project.id)}
+          class="group block rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-200 no-underline"
         >
-          {project.data.image && (
+          {project.data.image &&
             <div class="overflow-hidden h-48">
               <img
                 src={project.data.image.src}
@@ -26,22 +26,33 @@ const allProjects = (await getCollection("blogs")).sort(sortItemsByDateDesc);
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </div>
-          )}
+          }
           <div class="p-5">
             <h2 class="sigmar-ff text-lg mb-2 group-hover:text-red-500 transition-colors">
               {project.data.title}
             </h2>
-            <p class="kanit-light text-xs text-gray-500 mb-2">
+            <p class="kanit-light text-xs text-gray-500 mb-3">
               {new Date(project.data.publishDate).toLocaleDateString("id-ID", {
-                year: "numeric", month: "long", day: "numeric"
+                year: "numeric",
+                month: "long",
+                day: "numeric"
               })}
             </p>
             <p class="kanit-regular text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
               {project.data.excerpt}
             </p>
+            {project.data.tags &&
+              <div class="flex flex-wrap gap-2 mt-3">
+                {project.data.tags.map(tag =>
+                  <span class="tag rounded-full text-xs px-2 py-0 border border-gray-400 kanit-light">
+                    {tag}
+                  </span>
+                )}
+              </div>
+            }
           </div>
         </a>
-      ))}
+      )}
     </div>
   </div>
 </MainLayout>
