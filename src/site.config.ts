@@ -69,7 +69,7 @@ export type SiteConfig = {
 
 const siteConfig: SiteConfig = {
     website: 'https://example.com',
-    title: 'Space Ahead',
+    title: 'Portofolio',
     description: 'A minimal space-inspired personal blog template built with Astro.js and Tailwind CSS, by Siddhesh Thadeshwar',
     image: {
         src: '/space-ahead-preview.jpeg',
@@ -81,16 +81,16 @@ const siteConfig: SiteConfig = {
             href: withBase('/')
         },
         {
+            text: 'About',
+            href: withBase('/about')
+        },
+        {
             text: 'Skills',
-            href: withBase('/blog')
+            href: withBase('/skills')
         },
         {
             text: 'Projects',
-            href: withBase('/tags')
-        },
-        {
-            text: 'About',
-            href: withBase('/about')
+            href: withBase('/projects')
         },
         {
             text: 'Contact',
