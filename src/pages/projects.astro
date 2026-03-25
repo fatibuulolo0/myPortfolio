@@ -7,21 +7,18 @@ import { sortItemsByDateDesc, withBase } from "../utils/helpers";
 const allProjects = (await getCollection("blogs")).sort(sortItemsByDateDesc);
 
 const projects = allProjects.map(project => {
-  const date = new Date(project.data.publishDate);
-  const formattedDate = date.toLocaleDateString("id-ID", {
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-  });
+  const d = project.data.publishDate;
+  const dateObj = new Date(d);
+  const day = dateObj.getDate();
+  const month = dateObj.getMonth() + 1;
+  const year = dateObj.getFullYear();
+  const formattedDate = day + "/" + month + "/" + year;
   const href = withBase("/blog/" + project.id);
-  return {
-    href,
-    formattedDate,
-    title: project.data.title,
-    excerpt: project.data.excerpt,
-    tags: project.data.tags,
-    image: project.data.image,
-  };
+  const title = project.data.title;
+  const excerpt = project.data.excerpt;
+  const tags = project.data.tags;
+  const image = project.data.image;
+  return { href, formattedDate, title, excerpt, tags, image };
 });
 ---
 
