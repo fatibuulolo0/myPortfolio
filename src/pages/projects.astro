@@ -6,10 +6,23 @@ import { sortItemsByDateDesc, withBase } from "../utils/helpers";
 
 const allProjects = (await getCollection("blogs")).sort(sortItemsByDateDesc);
 
-const projectsWithHref = allProjects.map(project => ({
-  ...project,
-  href: withBase("/blog/" + project.id)
-}));
+const projects = allProjects.map(project => {
+  const date = new Date(project.data.publishDate);
+  const formattedDate = date.toLocaleDateString("id-ID", {
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  });
+  const href = withBase("/blog/" + project.id);
+  return {
+    href,
+    formattedDate,
+    title: project.data.title,
+    excerpt: project.data.excerpt,
+    tags: project.data.tags,
+    image: project.data.image,
+  };
+});
 ---
 
 <MainLayout activePage="projects" pageTitle={siteConfig.title + " | Projects"}>
@@ -17,37 +30,33 @@ const projectsWithHref = allProjects.map(project => ({
     <h1 class="sigmar-ff text-center pt-8 pb-2">Projects</h1>
     <p class="kanit-light text-center mb-12 text-sm">Things I have built and worked on</p>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 px-4 pb-16">
-      {projectsWithHref.map(project =>
+      {projects.map(project =>
         
           href={project.href}
           class="group block rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-200 no-underline"
         >
-          {project.data.image &&
+          {project.image &&
             <div class="overflow-hidden h-48">
               <img
-                src={project.data.image.src}
-                alt={project.data.title}
+                src={project.image.src}
+                alt={project.title}
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </div>
           }
           <div class="p-5">
             <h2 class="sigmar-ff text-lg mb-2 group-hover:text-red-500 transition-colors">
-              {project.data.title}
+              {project.title}
             </h2>
             <p class="kanit-light text-xs text-gray-500 mb-3">
-              {new Date(project.data.publishDate).toLocaleDateString("id-ID", {
-                year: "numeric",
-                month: "long",
-                day: "numeric"
-              })}
+              {project.formattedDate}
             </p>
             <p class="kanit-regular text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
-              {project.data.excerpt}
+              {project.excerpt}
             </p>
-            {project.data.tags &&
+            {project.tags &&
               <div class="flex flex-wrap gap-2 mt-3">
-                {project.data.tags.map(tag =>
+                {project.tags.map(tag =>
                   <span class="tag rounded-full text-xs px-2 py-0 border border-gray-400 kanit-light">
                     {tag}
                   </span>
