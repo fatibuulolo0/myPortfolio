@@ -68,17 +68,17 @@ Records with `person_age` greater than 100 and `person_emp_length` greater than 
 
 Outliers were detected using the Interquartile Range (IQR) method across all numeric columns. Box plots were generated to visually inspect the spread of each feature before and after treatment.
 
-![Outlier Detection Box Plot](../../assets/images/Outlier_Detection_and_Statistical_Range_of_Loan_Features.png)
+![Outlier Detection Box Plot](../../assets/images-006/Outlier_Detection_and_Statistical_Range_of_Loan_Features.png)
 
 
 ### **Feature Transformation**
 
-![Raw Data Distribution](../../assets//images/Numerical_Features_Distribution.png)
+![Raw Data Distribution](../../assets///Numerical_Features_Distribution.png)
 Numeric features showed right-skewed distributions, which can reduce the effectiveness of certain models. 
 
-![Data Distributin After Transformed](../../assets/images/Yeo-Johnson_Transformation_Normalized_Feature_Distributions.png)
+![Data Distributin After Transformed](../../assets/images-006/Yeo-Johnson_Transformation_Normalized_Feature_Distributions.png)
 
-![Outlier Detection Box Plot After Transformed](../../assets/images/Post-Transformation_Outlier_Analysis_and_Feature_Scaling.png)
+![Outlier Detection Box Plot After Transformed](../../assets/images-006/Post-Transformation_Outlier_Analysis_and_Feature_Scaling.png)
 
 The **Yeo-Johnson Power Transformation** was applied to normalize the distribution of each numeric feature. For key features such as `person_income`, `person_emp_length`, and `loan_amnt`, outliers identified after transformation were removed to prevent them from negatively affecting model training.
 
@@ -91,7 +91,7 @@ Two columns contained missing values:
 - **person_emp_length** — Imputed using the median value grouped by `person_age` and `loan_grade`. This group-level strategy ensures that the imputed values are contextually appropriate rather than using a global median that may not reflect the applicant's profile.
 - **loan_int_rate** — Imputed using the median grouped by `loan_grade`, since interest rate is strongly tied to the grade assigned to the loan.
 
-![Distribution Data After Imputation](../../assets/images/impute_missing_value.png)
+![Distribution Data After Imputation](../../assets/images-006/impute_missing_value.png)
 Distribution comparison plots confirmed that the imputation process did not shift the original distribution of either column, preserving the statistical integrity of the dataset.
 
 ### **Encoding and Scaling**
@@ -129,7 +129,7 @@ A custom threshold of **0.6** was applied when converting probabilities to binar
 
 Learning curves were plotted for the top four tree-based models (Random Forest, XGBoost, CatBoost, Balanced Random Forest) to inspect training stability, convergence behavior, and the presence of overfitting or underfitting patterns across increasing training set sizes.
 
-![Learning Curve](../../assets/images/learning_curve.png)
+![Learning Curve](../../assets/images-006/learning_curve.png)
 
 **XGBoost** was selected as the final model based on its overall performance across AUROC, Gini coefficient, and its balance between precision and recall on the minority class.
 
@@ -142,9 +142,9 @@ After selecting XGBoost as the final model, a decile scoring table was construct
 2. Applicants were sorted by descending score and divided into 10 equal-sized groups (deciles).
 3. The number of actual defaults and non-defaults in each decile was counted and visualized.
 
-![Default vs Non Distribution by XGBoost](../../assets/images/Default_and_non_Default_Distribution_base_on_XGBoost_Prediction.png
+![Default vs Non Distribution by XGBoost](../../assets/images-006/Default_and_non_Default_Distribution_base_on_XGBoost_Prediction.png
 )
-![Decile Lift](../../assets/images/Decile-wise_Lift_Chart.png)
+![Decile Lift](../../assets/images-006/Decile-wise_Lift_Chart.png)
 
 The lift chart reinforces this finding. Decile 1 achieved a lift index of approximately 4.6, meaning the model identified defaults in that group at 4.6 times the rate of a random selection. Decile 2 maintained a lift index above 2.5, still well above the baseline. From decile 3 onward, the lift index drops below 1.0, indicating that the remaining applicants carry below-average default risk. This steep decline from the top deciles is the expected behavior of a well-calibrated credit scoring model, where the highest-risk cases are concentrated at the top of the ranking.
 
@@ -160,7 +160,7 @@ SHAP is a game-theory-based framework that assigns each feature a contribution v
 
 A `TreeExplainer` was used, which is optimized for tree-based models like XGBoost and computes SHAP values efficiently. A global summary plot was generated to show which features had the most impact across the entire test set and in which direction.
 
-![SHAP TreeExplainer](../../assets/images/Feature_Importance_Analysis_using_SHAP_Values.png)
+![SHAP TreeExplainer](../../assets/images-006/Feature_Importance_Analysis_using_SHAP_Values.png)
 
 The most influential features identified were:
 - **loan_grade** — This emerged as the most dominant feature. Higher numerical values (representing lower grades like D, E, F, and G) significantly push the model toward a "Default" prediction.
