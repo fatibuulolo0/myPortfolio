@@ -18,7 +18,7 @@ const projects = allProjects.map(project => {
   const excerpt = project.data.description;
   const tags = project.data.tags;
   const hasImage = project.data.image ? true : false;
-  const imageSrc = project.data.image ? project.data.image.src : "";
+  const imageSrc = project.data.image ? project.data.image.url.src : "";
   const imageAlt = project.data.image ? project.data.image.alt : "";
   return { href, formattedDate, title, excerpt, tags, hasImage, imageSrc, imageAlt };
 });
