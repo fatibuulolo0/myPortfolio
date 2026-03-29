@@ -5,12 +5,11 @@ author: "Fati Buulolo"
 image:
   url: "../../assets/images/1.png"
   alt: "Credit Risk Modeling with SHAP"
-pubDate: 2026-29-03
+publishDate: 2026-03-29
 tags:
   ["Python", "XGBoost", "SHAP", "Machine Learning", "Credit Risk"]
 ---
 
-Welcome to my _new blog_ about space exploration! Here, I will share my learning journey about the universe around us.
 
 ## Overview
 
@@ -22,8 +21,9 @@ This project builds an end-to-end credit risk scoring system using XGBoost as th
 
 ## Problem Statement
 
-Credit default prediction is a binary classification problem where the target variable `loan_status` takes the value 1 for default and 0 for non-default. The dataset contains 32,581 loan records with 11 input features covering applicant demographics, employment profile, loan characteristics, and credit history. One of the main challenges in this dataset is class imbalance which the number of non default cases significantly outnumbers default cases, which means a naive model that always predicts non-default would still achieve high accuracy while being completely useless for risk detection.
-Standard machine learning models for credit scoring often produce predictions without any explanation, they give no indication of which specific factors drove that score for a given applicant. In credit lending, this is a practical problem. A lender cannot simply tell an applicant their application was rejected because the model returned 0.74. There needs to be a documented, feature-level reason. This project combines XGBoost as the scoring engine with SHAP as the explanation layer to produce both a risk score and a ranked list of the top contributing factors behind each individual prediction.
+Credit default prediction is a binary classification problem where the target variable `loan_status` takes the value 1 for default and 0 for non-default. The dataset contains 32,581 loan records with 11 input features covering applicant demographics, employment profile, loan characteristics, and credit history. 
+
+One of the main challenges in this dataset is class imbalance which the number of non default cases significantly outnumbers default cases, which means a naive model that always predicts non-default would still achieve high accuracy while being completely useless for risk detection. Standard machine learning models for credit scoring often produce predictions without any explanation, they give no indication of which specific factors drove that score for a given applicant. In credit lending, this is a practical problem. A lender cannot simply tell an applicant their application was rejected because the model returned 0.74. There needs to be a documented, feature-level reason. This project combines XGBoost as the scoring engine with SHAP as the explanation layer to produce both a risk score and a ranked list of the top contributing factors behind each individual prediction.
 
 ---
 
@@ -56,7 +56,6 @@ loan application records. <strong style="background-color:#c9b99a; padding: 2px 
 
 - **loan_status** — Target variable: 1 = Default, 0 = Non-Default
 
-&nbsp;
 ---
 
 ## Data Preprocessing
@@ -123,7 +122,7 @@ Nine classification models were trained and evaluated:
 - XGBoost
 - CatBoost
 - Balanced Random Forest
-
+-
 Each model was evaluated using **AUROC (Area Under the ROC Curve)** and **Classification Report**, which provides precision, recall, and F1-score per class.
 
 A custom threshold of **0.6** was applied when converting probabilities to binary predictions, rather than using the default 0.5, to reduce false negatives (missed defaults).
