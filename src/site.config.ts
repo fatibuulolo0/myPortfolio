@@ -69,7 +69,7 @@ export type SiteConfig = {
 
 const siteConfig: SiteConfig = {
     website: 'https://example.com',
-    title: 'Portofolio',
+    title: 'Portfolio',
     description: 'A minimal space-inspired personal blog template built with Astro.js and Tailwind CSS, by Siddhesh Thadeshwar',
     image: {
         src: '/space-ahead-preview.jpeg',
@@ -150,7 +150,7 @@ const siteConfig: SiteConfig = {
         ]
     },    
     blog: {
-        description: "Read about my space adventures, explorations and the aliens I've met on my journeys."
+        description: "Explore my latest technical insights, machine learning projects, and data-driven experiments."
     },
     postsPerPage: 2,
     recentPostLimit: 3
