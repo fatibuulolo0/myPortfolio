@@ -10,79 +10,94 @@ import heroImage from "../assets/images/profile_picture.png";
 import ArrowRight from "../icons/ArrowRight.astro";
 
 const allPosts = (await getCollection("blogs")).sort(sortItemsByDateDesc);
-const techIcons = [
-  { name: "Python", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg", class: "top-0 left-1/4 w-16 h-16 blur-[1px]", delay: "0s" },
-  { name: "SQL", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg", class: "bottom-10 left-0 w-14 h-14 blur-[2px]", delay: "1.5s" },
-  { name: "TensorFlow", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg", class: "top-1/4 right-0 w-20 h-20", delay: "0.5s" },
-  { name: "Math", src: "https://img.icons8.com/ios-filled/100/222222/pi.png", class: "bottom-0 right-1/4 w-12 h-12 blur-[3px] opacity-40", delay: "2s" },
-];
 
+// Data untuk ikon teknologi yang melayang
+const techIcons = [
+  { name: "Python", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg", class: "top-[10%] left-[20%] w-16 h-16 blur-[1px]", delay: "0s" },
+  { name: "SQL", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg", class: "bottom-[15%] left-[10%] w-14 h-14 blur-[2px]", delay: "1.5s" },
+  { name: "TensorFlow", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg", class: "top-[25%] right-[10%] w-24 h-24", delay: "0.5s" },
+  { name: "Math", src: "https://img.icons8.com/ios-filled/100/222222/pi.png", class: "bottom-[10%] right-[25%] w-12 h-12 blur-[1px] opacity-60", delay: "2s" },
+];
 ---
 
-<MainLayout activePage="home" pageTitle={siteConfig.title + " | Fati Buulolo"}>
-  <div class="jumbo-banner flex flex-col md:flex-row items-center justify-between w-full px-4 my-12 gap-12">
-    
-    <div class="w-full md:w-1/2">
-      {siteConfig.hero?.eyebrowText && (
-        <span class="tag rounded-full text-xs px-2 py-0 border border-gray-500 kanit-light">
-          {siteConfig.hero?.eyebrowText}
-        </span>
-      )}
-      <h1 class="sigmar-ff leading-tight text-balance sm:pt-0! text-5xl md:text-7xl">
+<MainLayout
+  activePage="home"
+  pageTitle={siteConfig.title + " | Fati Buulolo"}
+>
+  <div
+    class="jumbo-banner flex flex-col sm:flex-row sm:items-center sm:justify-between w-full px-4 my-12 gap-6 relative"
+  >
+    <div class="w-full sm:w-fit sm:max-w-1/2 z-10">
+      {
+        siteConfig.hero?.eyebrowText && (
+          <span class="tag rounded-full text-xs px-2 py-0 border border-gray-500 kanit-light">
+            {siteConfig.hero?.eyebrowText}
+          </span>
+        )
+      }
+      <h1 class="sigmar-ff leading-tight text-balance sm:pt-0!">
         {siteConfig.hero?.title}
       </h1>
-      <p class="kanit-regular text-balance text-sm md:text-lg opacity-80">
+      <p class="kanit-regular text-balance text-xs sm:text-base">
         {siteConfig.hero?.text}
       </p>
-      <div class="flex flex-wrap items-center gap-4 mt-8">
-        {siteConfig.hero?.actions?.map((action, index) => (
-          <Button href={action.href} class={index === 0 ? "space-btn-filled" : "space-btn-outlined"}>
-            {action.text}
-          </Button>
-        ))}
+      <div
+        class="flex flex-wrap items-center text-xs sm:text-base gap-x-2 gap-y-8 mt-3 sm:mt-12"
+      >
+        {
+          siteConfig.hero?.actions?.map((action, index) => (
+            <Button
+              href={action.href}
+              class={index === 0 ? "space-btn-filled" : "space-btn-outlined"}
+            >
+              {action.text}
+            </Button>
+          ))
+        }
       </div>
     </div>
 
-    <div class="relative w-full md:w-1/2 h-[300px] flex items-center justify-center pointer-events-none">
-      <div class="relative w-full h-full max-w-[400px]">
-        {techIcons.map((icon) => (
-          <div 
-            class:list={["absolute animate-float transition-all duration-700", icon.class]}
-            style={`animation-delay: ${icon.delay};`}
-          >
-            <img src={icon.src} alt={icon.name} class="w-full h-full object-contain filter drop-shadow-xl" />
-          </div>
-        ))}
-      </div>
+    <div class="hidden sm:flex relative w-full sm:w-1/2 h-[300px] items-center justify-center pointer-events-none z-0">
+      {techIcons.map((icon) => (
+        <div
+          class:list={["absolute animate-float transition-all duration-700", icon.class]}
+          style={`animation-delay: ${icon.delay};`}
+        >
+          <img src={icon.src} alt={icon.name} class="w-full h-full object-contain filter drop-shadow-xl" />
+        </div>
+      ))}
     </div>
-
   </div>
 
-  <div class="page-content">...</div>
+  <div class="page-content">
+    <div id="posts" class="flex flex-col items-center justify-center w-full">
+      <h2 class="sigmar-ff text-balance pt-0! pb-8!">Recent Stories</h2>
+      <div class="flex flex-col gap-8 max-w-full text-left">
+        {
+          allPosts
+            .slice(0, siteConfig.recentPostLimit)
+            .map((post) => <PostCardPreview post={post} />)
+        }
+      </div>
+      <Button href={withBase("/blog")} class="space-btn-filled mt-8">
+        View All Posts <ArrowRight class="w-5 h-5 fill-current ml-4" />
+      </Button>
+    </div>
+  </div>
 </MainLayout>
+
 <style>
+  /* Animasi CSS untuk efek melayang */
   @keyframes float {
     0%, 100% {
       transform: translateY(0) rotate(0deg);
     }
     50% {
-      transform: translateY(-20px) rotate(5deg);
+      transform: translateY(-15px) rotate(5deg);
     }
   }
 
   .animate-float {
     animation: float 6s infinite ease-in-out;
-  }
-
-  /* Menambahkan efek glow tipis di belakang area ikon */
-  .jumbo-banner::after {
-    content: '';
-    position: absolute;
-    right: 10%;
-    top: 20%;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, rgba(0,0,0,0.05) 0%, transparent 70%);
-    z-index: -1;
   }
 </style>
