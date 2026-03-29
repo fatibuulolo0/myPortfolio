@@ -1,8 +1,7 @@
 ---
 title: "Interpretable Credit Risk Modeling Using Explainable AI (XAI) — SHAP"
-description: "This is the first post of my new blog."
+description: "Building a credit risk scoring system using XGBoost and SHAP to predict loan default probability while providing transparent, human-readable rejection reasons for each applicant."
 author: "Fati Buulolo"
-excerpt: "Building a credit risk scoring system using XGBoost and SHAP to predict loan default probability while providing transparent, human-readable rejection reasons for each applicant."
 image:
   url: "../../assets/images/1.png"
   alt: "Credit Risk Modeling with SHAP"
@@ -30,37 +29,50 @@ Standard machine learning models for credit scoring often produce predictions wi
 
 ## Dataset
 
-The dataset used in this project is a publicly available credit risk dataset containing loan application records. Source: [Kaggle — Credit Risk Dataset](https://www.kaggle.com/datasets/laotse/credit-risk-dataset). Each record includes the following features:
+The dataset used in this project is a publicly available credit risk dataset containing 
+loan application records. <strong style="background-color:#c9b99a; padding: 2px 6px; border-radius: 4px;">Source: [Kaggle — Credit Risk Dataset](https://www.kaggle.com/datasets/laotse/credit-risk-dataset)</strong>. Each record includes the following features:
 
 - **person_age** — Age of the applicant
+
 - **person_income** — Annual income
+
 - **person_home_ownership** — Home ownership status (RENT, OWN, MORTGAGE, OTHER)
+
 - **person_emp_length** — Length of employment in years
+
 - **loan_intent** — Purpose of the loan (EDUCATION, MEDICAL, PERSONAL, VENTURE, etc.)
+
 - **loan_grade** — Loan grade assigned by the lender (A through G)
+
 - **loan_amnt** — Loan amount requested
+
 - **loan_int_rate** — Interest rate on the loan
+
 - **loan_percent_income** — Ratio of loan amount to annual income
+
 - **historical_default** — Whether the applicant has a prior default on file
+
 - **credit_history_length** — Length of credit history in years
+
 - **loan_status** — Target variable: 1 = Default, 0 = Non-Default
 
+&nbsp;
 ---
 
 ## Data Preprocessing
 
-### Removing Unrealistic Records
+### **Removing Unrealistic Records**
 
 Records with `person_age` greater than 100 and `person_emp_length` greater than 100 were identified and removed. These values are statistically implausible and likely represent data entry errors. Keeping them would introduce noise and distort feature distributions during training.
 
-### Outlier Detection and Handling
+### **Outlier Detection and Handling**
 
 Outliers were detected using the Interquartile Range (IQR) method across all numeric columns. Box plots were generated to visually inspect the spread of each feature before and after treatment.
 
 ![Outlier Detection Box Plot](../../assets/images/Outlier_Detection_and_Statistical_Range_of_Loan_Features.png)
 
 
-### Feature Transformation
+### **Feature Transformation**
 
 ![Raw Data Distribution](../../assets//images/Numerical_Features_Distribution.png)
 Numeric features showed right-skewed distributions, which can reduce the effectiveness of certain models. 
@@ -73,7 +85,7 @@ The **Yeo-Johnson Power Transformation** was applied to normalize the distributi
 
 Before and after distribution plots confirmed that the transformation brought the features closer to a normal distribution without distorting the original data relationships.
 
-### Missing Value Imputation
+### **Missing Value Imputation**
 
 Two columns contained missing values:
 
@@ -83,7 +95,7 @@ Two columns contained missing values:
 ![Distribution Data After Imputation](../../assets/images/impute_missing_value.png)
 Distribution comparison plots confirmed that the imputation process did not shift the original distribution of either column, preserving the statistical integrity of the dataset.
 
-### Encoding and Scaling
+### **Encoding and Scaling**
 
 Categorical columns (`person_home_ownership`, `loan_intent`, `loan_grade`, `historical_default`) were encoded using Label Encoding. The dataset was then split into training (70%) and test (30%) sets using stratified sampling to maintain the class distribution. Features were scaled using **RobustScaler**, which is resistant to outliers compared to StandardScaler.
 
@@ -187,4 +199,6 @@ This approach makes the model's output actionable and compliant with the kind of
 
 ## Source Code
 
-[View on GitHub](https://github.com/FatiBuuloloo/Interpretable_Credit_Risk_Modeling_Using_Explainable_AI-XAI-_SHAP-mini_project_006)
+<strong style="background-color:#c9b99a; padding: 2px 6px; border-radius: 4px;">
+  <a href="https://github.com/FatiBuuloloo/Interpretable_Credit_Risk_Modeling_Using_Explainable_AI-XAI-_SHAP-mini_project_006">View on GitHub</a>
+</strong>
