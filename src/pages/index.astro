@@ -48,18 +48,6 @@ const allPosts = (await getCollection("blogs")).sort(sortItemsByDateDesc);
         }
       </div>
     </div>
-/* 
-    <div class="w-full sm:w-fit sm:max-w-1/2">
-      <!-- {siteConfig.hero?.image && <Image src={siteConfig.hero?.image?.src} alt={siteConfig.hero?.image?.alt || ""} inferSize={true} />} -->
-      <Image
-        class="cover-img"
-        src={heroImage}
-        alt={"Astronaut in space"}
-        width={150}
-        height={200}
-      />
-    </div>
-*/
   </div>
   <div class="page-content">
     <div id="posts" class="flex flex-col items-center justify-center w-full">
