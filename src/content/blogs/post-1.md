@@ -5,7 +5,7 @@ author: "Fati Buulolo"
 image:
   url: "../../assets/images/1.png"
   alt: "Credit Risk Modeling with SHAP"
-publishDate: 2026-03-29
+pubDate: 2026-03-29
 tags:
   ["Python", "XGBoost", "SHAP", "Machine Learning", "Credit Risk"]
 ---
