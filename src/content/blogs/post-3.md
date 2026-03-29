@@ -1,6 +1,6 @@
 ---
-title: "Aim for the Stars, land between the moons, or follow the meteor?"
-author: "Astro-naut Sid"
+title: "BCA Product RAG Conversational AI"
+author: "Fati Buulolo"
 description: "A Retrieval-Augmented Generation (RAG) chatbot that answers questions about BCA individual banking products using Pinecone as the vector store, BGE-M3 as the embedding model, and LLaMA 3.1 via Groq as the language model."
 image:
   url: "../../assets/images-010/display_chatbot.png"
