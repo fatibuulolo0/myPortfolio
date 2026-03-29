@@ -13,7 +13,7 @@ tags:
 
 ## Overview
 
- This project explores multi touch attribution by replacing traditional heuristic models with a mathematical approach based on Game Theory. By calculating the Shapley Value, we assign a fair contribution percentage to each marketing channel based on its true impact on the customer journey.
+This project explores multi touch attribution by replacing traditional heuristic models with a mathematical approach based on Game Theory. By calculating the Shapley Value, we assign a fair contribution percentage to each marketing channel based on its true impact on the customer journey.
 
 ---
 
