@@ -73,7 +73,7 @@ Outliers were detected using the Interquartile Range (IQR) method across all num
 
 ### **Feature Transformation**
 
-![Raw Data Distribution](../../assets///Numerical_Features_Distribution.png)
+![Raw Data Distribution](../../assets/images-006/Numerical_Features_Distribution.png)
 Numeric features showed right-skewed distributions, which can reduce the effectiveness of certain models. 
 
 ![Data Distributin After Transformed](../../assets/images-006/Yeo-Johnson_Transformation_Normalized_Feature_Distributions.png)
