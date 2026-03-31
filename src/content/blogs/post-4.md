@@ -15,7 +15,7 @@ tags:
 
 This project investigates a marketing intervention launched in January 2018 targeting the Rio de Janeiro (RJ) market. Initial observations indicated a severe decline in sales post-intervention. Using Causal Inference, this analysis quantifies the negative impact. Subsequent Exploratory Data Analysis (EDA) uncovers the true root cause: the failure was not due to poor marketing or lack of consumer interest, but a significant surge in freight (shipping) costs that acted as a major disincentive for buyers.
 
-Dataset <strong style="background-color:#c9b99a; padding: 2px 6px; border-radius: 4px;">
+Dataset: <strong style="background-color:#c9b99a; padding: 2px 6px; border-radius: 4px;">
 <a href="[https://www.kaggle.com/datasets/enzoschitini/brazilian-e-commerce-public-dataset-by-olist?resource=download]">View on Kaggle</a>
 </strong
 
