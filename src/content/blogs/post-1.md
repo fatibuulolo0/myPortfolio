@@ -113,16 +113,16 @@ The target variable `loan_status` is imbalanced, with non-default cases signific
 
 Nine classification models were trained and evaluated:
 
-- Logistic Regression
-- Support Vector Machine (SVM)
-- K-Nearest Neighbors (KNN)
-- Naive Bayes
-- Random Forest
-- LightGBM
-- XGBoost
-- CatBoost
-- Balanced Random Forest
--
+* Logistic Regression
+* Support Vector Machine (SVM)
+* K-Nearest Neighbors (KNN)
+* Naive Bayes
+* Random Forest
+* LightGBM
+* XGBoost
+* CatBoost
+* Balanced Random Forest
+
 Each model was evaluated using **AUROC (Area Under the ROC Curve)** and **Classification Report**, which provides precision, recall, and F1-score per class.
 
 A custom threshold of **0.6** was applied when converting probabilities to binary predictions, rather than using the default 0.5, to reduce false negatives (missed defaults).
