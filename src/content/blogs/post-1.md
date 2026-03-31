@@ -3,7 +3,7 @@ title: "Interpretable Credit Risk Modeling Using Explainable AI (XAI) — SHAP"
 description: "Building a credit risk scoring system using XGBoost and SHAP to predict loan default probability while providing transparent, human-readable rejection reasons for each applicant."
 author: "Fati Buulolo"
 image:
-  url: "../../assets/images/1.png"
+  url: "../../assets/images-006/display.png"
   alt: "Credit Risk Modeling with SHAP"
 pubDate: 2026-03-29
 tags:
