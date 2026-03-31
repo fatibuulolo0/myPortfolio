@@ -201,3 +201,9 @@ This approach makes the model's output actionable and compliant with the kind of
 <strong style="background-color:#c9b99a; padding: 2px 6px; border-radius: 4px;">
   <a href="https://github.com/FatiBuuloloo/Interpretable_Credit_Risk_Modeling_Using_Explainable_AI-XAI-_SHAP-mini_project_006">View on GitHub</a>
 </strong>
+
+
+<strong style="background-color:#c9b99a; padding: 2px 6px; border-radius: 4px;">
+  <a href="https://viewww-loan-approval-shap-xai.hf.space
+">Live Demo</a>
+</strong>
