@@ -147,7 +147,7 @@ The data reveals a critical inflection point at the cart stage: the view-to-cart
 The Sankey diagram below maps weighted event transitions across the top 30 business-critical patterns. Each node represents a behavioral state (`view`, `cart`, or `purchase` per brand), and each flow represents the volume of users moving between states.
 
 <iframe
-  src="../public/sankey_visualization.html"
+  src="/sankey_visualization.html"
   width="100%"
   height="580px"
   frameborder="0"
