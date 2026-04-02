@@ -5,7 +5,7 @@ description: "An investigation into a marketing intervention in Rio de Janeiro u
 image:
   url: "../../assets/images-011/causal_impact.png"
   alt: "The word astro against an illustration of planets and stars."
-pubDate: 2024-02-07
+pubDate: 2026-04-01
 tags:
   ["Python", "Causal Inference", "Data Analysis", "EDA", "Business Strategy", "Logistics"]
 
