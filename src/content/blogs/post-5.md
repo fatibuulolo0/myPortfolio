@@ -88,108 +88,30 @@ Each sequence represents a user session encoded as an ordered list of `event_bra
 
 PrefixSpan is a projection-based sequential pattern mining algorithm that discovers all frequent ordered subsequences without generating candidates. It works by iteratively projecting the database onto suffix subsequences for each frequent prefix, making it efficient on large datasets.
 
-<div class="my-10 max-w-3xl mx-auto">
-  <div class="relative p-8 bg-white/60 backdrop-blur-sm border border-zinc-200 rounded-3xl shadow-xl overflow-hidden">
-    
-    <div class="absolute top-0 right-0 w-24 h-24 bg-[#c9b99a]/10 rounded-bl-full"></div>
+```
+Input  : User event sequences
 
-    <div class="relative space-y-8">
-      
-      <div class="flex gap-4">
-        <div class="flex-none">
-          <div class="w-10 h-10 rounded-full bg-[#c9b99a] flex items-center justify-center text-white font-bold shadow-md shadow-[#c9b99a]/30">1</div>
-        </div>
-        <div class="flex-1 pt-1">
-          <h4 class="text-xs font-black uppercase tracking-widest text-zinc-400 mb-2">Input</h4>
-          <p class="text-zinc-600 text-sm mb-3">User event sequences:</p>
-          <div class="bg-white/80 border border-zinc-100 p-3 rounded-xl font-mono text-xs text-[#c9b99a] shadow-sm">
-            ['view_samsung', 'cart_samsung', 'purchase_samsung']
-          </div>
-        </div>
-      </div>
+         e.g. ['view_samsung', 'cart_samsung', 'purchase_samsung']
 
-      <div class="ml-5 border-l-2 border-dashed border-zinc-200 h-6"></div>
+Process: PrefixSpan — min_support = 0.1% of total events
 
-      <div class="flex gap-4">
-        <div class="flex-none">
-          <div class="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center text-white font-bold">2</div>
-        </div>
-        <div class="flex-1 pt-1">
-          <h4 class="text-xs font-black uppercase tracking-widest text-zinc-400 mb-2">Process</h4>
-          <div class="inline-flex items-center gap-2 bg-zinc-100 px-4 py-2 rounded-full border border-zinc-200">
-            <span class="text-sm font-bold text-zinc-700">PrefixSpan</span>
-            <span class="w-1 h-1 bg-zinc-400 rounded-full"></span>
-            <span class="text-xs text-zinc-500 italic">min_support = 0.1%</span>
-          </div>
-        </div>
-      </div>
+Output : All frequent ordered patterns with occurrence counts
 
-      <div class="ml-5 border-l-2 border-dashed border-zinc-200 h-6"></div>
-
-      <div class="flex gap-4">
-        <div class="flex-none">
-          <div class="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center text-white font-bold shadow-md shadow-emerald-500/20">3</div>
-        </div>
-        <div class="flex-1 pt-1">
-          <h4 class="text-xs font-black uppercase tracking-widest text-zinc-400 mb-2">Output</h4>
-          <div class="bg-emerald-50/50 border border-emerald-100 p-4 rounded-2xl">
-            <p class="text-emerald-800 text-sm font-medium leading-relaxed">
-              All frequent ordered patterns with occurrence counts
-            </p>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
+```
 
 ### Conversion Rate via Association Rule Confidence
 
 For every frequent sequential pattern of length > 1, an association rule is derived:
 
-<div class="my-10 max-w-2xl mx-auto">
-  <div class="bg-white/40 backdrop-blur-sm border border-zinc-200 p-8 rounded-3xl shadow-sm">
-    
-    <div class="flex items-center gap-3 mb-6">
-      <div class="h-px flex-1 bg-zinc-200"></div>
-      <span class="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">Rule Derivation Logic</span>
-      <div class="h-px flex-1 bg-zinc-200"></div>
-    </div>
+```
 
-    <div class="grid grid-cols-1 gap-8">
-      
-      <div class="flex justify-between items-start border-b border-zinc-100 pb-6">
-        <div class="space-y-1">
-          <p class="text-xs font-bold text-zinc-400 uppercase">Sequential Pattern</p>
-          <p class="font-mono text-lg text-zinc-800">[A, B]</p>
-        </div>
-        <div class="text-right space-y-1">
-          <p class="text-xs font-bold text-zinc-400 uppercase">Derived Rule</p>
-          <p class="font-mono text-lg text-[#c9b99a] font-bold text-zinc-800">A → B</p>
-        </div>
-      </div>
+Pattern  : [A, B]
 
-      <div class="py-4 flex flex-col items-center justify-center bg-white/50 rounded-2xl border border-white shadow-inner">
-        <p class="text-[10px] font-bold text-zinc-400 uppercase mb-4 tracking-widest">Confidence Calculation</p>
-        
-        <div class="flex items-center gap-4">
-          <span class="text-zinc-800 font-serif italic text-lg text-zinc-900">Confidence =</span>
-          
-          <div class="flex flex-col items-center">
-            <span class="px-4 py-1 font-mono text-sm text-zinc-800 border-b border-zinc-800">freq(A, B)</span>
-            <span class="px-4 py-1 font-mono text-sm text-zinc-800">freq(A)</span>
-          </div>
-        </div>
-      </div>
+Rule     : A → B
 
-      <p class="text-[11px] leading-relaxed text-zinc-500 italic text-center px-6">
-        "Probability that a user who performed action <strong class="text-zinc-700">A</strong> will subsequently perform action <strong class="text-zinc-700">B</strong> within the same sequence."
-      </p>
+Confidence = freq(A, B) / freq(A)
 
-    </div>
-  </div>
-</div>
+```
 
 This confidence is interpreted as a behavioral conversion rate which, which represent the probability that a user who performed action A will subsequently perform action B within the same session sequence.
 
