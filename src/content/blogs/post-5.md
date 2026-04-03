@@ -88,24 +88,57 @@ Each sequence represents a user session encoded as an ordered list of `event_bra
 
 PrefixSpan is a projection-based sequential pattern mining algorithm that discovers all frequent ordered subsequences without generating candidates. It works by iteratively projecting the database onto suffix subsequences for each frequent prefix, making it efficient on large datasets.
 
-```
-Input  : User event sequences
-         e.g. ['view_samsung', 'cart_samsung', 'purchase_samsung']
+<div class="my-6 space-y-6">
+  <div class="bg-zinc-50 border-l-4 border-[#c9b99a] p-5 rounded-r-xl shadow-sm">
+    <div class="flex items-center gap-2 mb-3 text-[#c9b99a]">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.7 1.5-1.7 1.5-3 0-2.2-1.8-4-4-4s-4 1.8-4 4v2H5v6h14v-6h-4z"></path></svg>
+      <span class="font-bold uppercase tracking-wider text-xs">Input Sequence</span>
+    </div>
+    <code class="text-sm text-zinc-700 block bg-white/50 p-3 rounded border border-zinc-100 font-mono">
+      ['view_samsung', 'cart_samsung', 'purchase_samsung']
+    </code>
+  </div>
 
-Process: PrefixSpan — min_support = 0.1% of total events
+  <div class="bg-zinc-50 border-l-4 border-zinc-400 p-5 rounded-r-xl shadow-sm">
+    <div class="flex items-center gap-2 mb-2 text-zinc-500 text-xs font-bold uppercase tracking-widest">
+      <span>Process: PrefixSpan</span>
+    </div>
+    <p class="text-zinc-600 text-sm">
+      Minimum Support Threshold: <span class="font-mono font-bold text-zinc-800">0.1%</span> of total events
+    </p>
+  </div>
 
-Output : All frequent ordered patterns with occurrence counts
-```
+  <div class="bg-zinc-800 p-5 rounded-xl shadow-lg border border-zinc-700">
+    <div class="flex items-center gap-2 mb-3 text-emerald-400">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      <span class="font-bold text-xs uppercase">Expected Output</span>
+    </div>
+    <p class="text-zinc-300 text-sm italic">All frequent ordered patterns with occurrence counts</p>
+  </div>
+</div>
 
 ### Conversion Rate via Association Rule Confidence
 
 For every frequent sequential pattern of length > 1, an association rule is derived:
 
-```
-Pattern  : [A, B]
-Rule     : A → B
-Confidence = freq(A, B) / freq(A)
-```
+<div class="bg-white border border-zinc-200 p-6 rounded-2xl shadow-sm my-8">
+  <h4 class="text-sm font-bold text-zinc-400 uppercase tracking-widest mb-4">Association Rule Logic</h4>
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+    <div class="flex items-center justify-center bg-zinc-50 p-4 rounded-lg border border-dashed border-zinc-300">
+      <span class="font-mono text-lg font-bold text-zinc-800">A</span>
+      <svg xmlns="http://www.w3.org/2000/svg" class="mx-3 text-[#c9b99a]" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      <span class="font-mono text-lg font-bold text-zinc-800">B</span>
+    </div>
+
+    <div class="bg-[#c9b99a]/10 p-4 rounded-lg border border-[#c9b99a]/20">
+      <p class="text-xs text-[#c9b99a] font-bold uppercase mb-1">Confidence Formula</p>
+      <div class="text-xl font-serif text-zinc-800">
+        $$Confidence = \frac{freq(A, B)}{freq(A)}$$
+      </div>
+    </div>
+  </div>
+</div>
 
 This confidence is interpreted as a behavioral conversion rate which, which represent the probability that a user who performed action A will subsequently perform action B within the same session sequence.
 
