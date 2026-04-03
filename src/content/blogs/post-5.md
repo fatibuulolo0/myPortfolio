@@ -91,8 +91,8 @@ The 15 most frequent patterns across the entire dataset reveal dominant browsing
 | 5 | `view_samsung → view_samsung` | 971,106 |
 | 6 | `view_apple → view_apple` | 791,250 |
 | 7 | `view_xiaomi` | 737,611 |
-| 8 | `view_Unknown × 3` | 670,225 |
-| 9 | `view_samsung × 3` | 583,094 |
+| 8 | `view_Unknown → view_Unknown → view_Unknown` | 670,225 |
+| 9 | `view_samsung → view_samsung → view_samsung` | 583,094 |
 | 10 | `view_xiaomi → view_xiaomi` | 552,483 |
 
 The dominance of repeated single-brand view patterns like `view_samsung → view_samsung`, `view_apple → view_apple` confirms that users engage in multi-session consideration loops before committing to any commercial action.
@@ -116,7 +116,7 @@ Filtering for patterns that involve `cart` or `purchase` isolates the commercial
 | 9 | `purchase_apple` | 121,635 |
 | 10 | `view_apple → purchase_apple` | 121,342 |
 | 11 | `cart_samsung → purchase_samsung` | 104,910 |
-| 12 | `view_samsung → cart_samsung → purchase_samsung` | 104,409 |
+| 12 | `view_samsung → cart_samsung → purchase_samsung`  | 104,409 |
 
 ---
 
@@ -186,10 +186,32 @@ The pattern `cart_samsung → view_samsung` achieved a confidence of 68.77%, mea
 
 ### Samsung Leads in Volume, Apple Leads in Efficiency
 
-| Brand | Views | Purchases | View-to-Purchase Rate |
-|---|---|---|---|
-| Samsung | 1,285,599 | 149,358 | 11.6% |
-| Apple | 1,002,335 | 121,635 | 12.1% |
+<div style="overflow-x: auto; margin-bottom: 20px;">
+  <table style="width: 100%; border-collapse: collapse; text-align: left;">
+    <thead>
+      <tr style="border-bottom: 2px solid #c9b99a;">
+        <th style="padding: 12px; font-weight: bold;">Brand</th>
+        <th style="padding: 12px; font-weight: bold;">Views</th>
+        <th style="padding: 12px; font-weight: bold;">Purchases</th>
+        <th style="padding: 12px; font-weight: bold;">Rate</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom: 1px solid #eee;">
+        <td style="padding: 12px;">Samsung</td>
+        <td style="padding: 12px;">1,285,599</td>
+        <td style="padding: 12px;">149,358</td>
+        <td style="padding: 12px;">11.6%</td>
+      </tr>
+      <tr>
+        <td style="padding: 12px;">Apple</td>
+        <td style="padding: 12px;">1,002,335</td>
+        <td style="padding: 12px;">121,635</td>
+        <td style="padding: 12px;">12.1%</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 Apple converts a slightly higher share of its viewers into buyers. Samsung's greater raw volume comes with a broader and less committed audience. Each brand warrants a different retention strategy: Samsung users benefit from comparison features and decision-support tools; Apple users, already more decisive, respond better to upsell and accessory recommendations at checkout.
 
