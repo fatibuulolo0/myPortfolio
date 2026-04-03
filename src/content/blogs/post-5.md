@@ -250,10 +250,10 @@ Filtering for patterns that involve `cart` or `purchase` isolates the commercial
 
 Using association rule confidence, the behavioral conversion rate is computed for each step-to-step transition:
 
-<div class="overflow-x-auto my-8 border border-zinc-200 rounded-lg">
-  <table class="w-full text-left border-collapse min-w-[600px]">
+<div class="overflow-x-auto my-8 border border-zinc-200 rounded-xl shadow-sm">
+  <table class="w-full text-left border-collapse min-w-[700px]">
     <thead>
-      <tr class="bg-[#c9b99a] text-zinc-900">
+      <tr class="bg-[#c9b99a] text-zinc-900 text-sm">
         <th class="p-4 font-bold border-b border-zinc-300">Pattern (Antecedent → Consequent)</th>
         <th class="p-4 font-bold border-b border-zinc-300">Events</th>
         <th class="p-4 font-bold border-b border-zinc-300 text-center">Conversion Rate</th>
@@ -261,29 +261,59 @@ Using association rule confidence, the behavioral conversion rate is computed fo
     </thead>
     <tbody class="kanit-light text-sm">
       <tr class="border-b border-zinc-100 hover:bg-zinc-50 transition-colors">
-        <td class="p-4 font-mono text-xs"><code>view_samsung</code> → <code>cart_samsung</code></td>
-        <td class="p-4">184,926</td>
-        <td class="p-4 text-center font-bold text-emerald-700">14.38%</td>
+        <td class="p-3 font-mono text-xs"><code>view_samsung</code> → <code>cart_samsung</code></td>
+        <td class="p-3">184,926</td>
+        <td class="p-3 text-center font-bold text-emerald-700">14.38%</td>
       </tr>
-      <tr class="border-b border-zinc-100 bg-zinc-50/50 hover:bg-zinc-50 transition-colors">
-        <td class="p-4 font-mono text-xs"><code>view_samsung</code> → <code>purchase_samsung</code></td>
-        <td class="p-4">148,934</td>
-        <td class="p-4 text-center font-bold text-emerald-700">11.58%</td>
-      </tr>
-      <tr class="border-b border-zinc-100 hover:bg-zinc-50 transition-colors">
-        <td class="p-4 font-mono text-xs"><code>view_apple</code> → <code>cart_apple</code></td>
-        <td class="p-4">135,572</td>
-        <td class="p-4 text-center font-bold text-emerald-700">13.53%</td>
-      </tr>
-      <tr class="border-b border-zinc-100 bg-zinc-50/50 hover:bg-zinc-50 transition-colors">
-        <td class="p-4 font-mono text-xs"><code>view_apple</code> → <code>purchase_apple</code></td>
-        <td class="p-4">121,342</td>
-        <td class="p-4 text-center font-bold text-emerald-700">12.11%</td>
+      <tr class="border-b border-zinc-100 bg-zinc-50/30 hover:bg-zinc-50 transition-colors">
+        <td class="p-3 font-mono text-xs"><code>view_samsung</code> → <code>purchase_samsung</code></td>
+        <td class="p-3">148,934</td>
+        <td class="p-3 text-center font-bold text-emerald-700">11.58%</td>
       </tr>
       <tr class="border-b border-zinc-100 hover:bg-zinc-50 transition-colors">
-        <td class="p-4 font-mono text-xs"><code>cart_samsung</code> → <code>purchase_samsung</code></td>
-        <td class="p-4">104,910</td>
-        <td class="p-4 text-center font-bold text-emerald-700">56.47%</td>
+        <td class="p-3 font-mono text-xs"><code>view_apple</code> → <code>cart_apple</code></td>
+        <td class="p-3">135,572</td>
+        <td class="p-3 text-center font-bold text-emerald-700">13.53%</td>
+      </tr>
+      <tr class="border-b border-zinc-100 bg-zinc-50/30 hover:bg-zinc-50 transition-colors">
+        <td class="p-3 font-mono text-xs"><code>view_apple</code> → <code>purchase_apple</code></td>
+        <td class="p-3">121,342</td>
+        <td class="p-3 text-center font-bold text-emerald-700">12.11%</td>
+      </tr>
+      <tr class="border-b border-zinc-100 hover:bg-zinc-50 transition-colors">
+        <td class="p-3 font-mono text-xs"><code>cart_samsung</code> → <code>purchase_samsung</code></td>
+        <td class="p-3">104,910</td>
+        <td class="p-3 text-center font-bold text-[#c9b99a]">56.47%</td>
+      </tr>
+      <tr class="border-b border-zinc-100 bg-zinc-50/30 hover:bg-zinc-50 transition-colors">
+        <td class="p-3 font-mono text-xs"><code>view_samsung → cart_samsung</code> → <code>purchase_samsung</code></td>
+        <td class="p-3">104,409</td>
+        <td class="p-3 text-center font-bold text-[#c9b99a]">56.46%</td>
+      </tr>
+      <tr class="border-b border-zinc-100 hover:bg-zinc-50 transition-colors">
+        <td class="p-3 font-mono text-xs"><code>cart_samsung</code> → <code>view_samsung</code></td>
+        <td class="p-3">127,766</td>
+        <td class="p-3 text-center font-bold text-zinc-500">68.77%</td>
+      </tr>
+      <tr class="border-b border-zinc-100 bg-zinc-50/30 hover:bg-zinc-50 transition-colors">
+        <td class="p-3 font-mono text-xs"><code>view_samsung → cart_samsung</code> → <code>view_samsung</code></td>
+        <td class="p-3">127,086</td>
+        <td class="p-3 text-center font-bold text-zinc-500">68.72%</td>
+      </tr>
+      <tr class="border-b border-zinc-100 hover:bg-zinc-50 transition-colors">
+        <td class="p-3 font-mono text-xs"><code>cart_apple</code> → <code>view_apple</code></td>
+        <td class="p-3">92,655</td>
+        <td class="p-3 text-center font-bold text-zinc-500">68.11%</td>
+      </tr>
+      <tr class="border-b border-zinc-100 bg-zinc-50/30 hover:bg-zinc-50 transition-colors">
+        <td class="p-3 font-mono text-xs"><code>view_apple → cart_apple</code> → <code>view_apple</code></td>
+        <td class="p-3">92,293</td>
+        <td class="p-3 text-center font-bold text-zinc-500">68.08%</td>
+      </tr>
+      <tr class="hover:bg-zinc-50 transition-colors">
+        <td class="p-3 font-mono text-xs"><code>view_samsung → view_samsung</code> → <code>cart_samsung</code></td>
+        <td class="p-3">94,500</td>
+        <td class="p-3 text-center font-bold text-emerald-700">9.73%</td>
       </tr>
     </tbody>
   </table>
