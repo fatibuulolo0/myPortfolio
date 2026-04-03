@@ -88,32 +88,59 @@ Each sequence represents a user session encoded as an ordered list of `event_bra
 
 PrefixSpan is a projection-based sequential pattern mining algorithm that discovers all frequent ordered subsequences without generating candidates. It works by iteratively projecting the database onto suffix subsequences for each frequent prefix, making it efficient on large datasets.
 
-<div class="my-6 space-y-6">
-  <div class="bg-zinc-50 border-l-4 border-[#c9b99a] p-5 rounded-r-xl shadow-sm">
-    <div class="flex items-center gap-2 mb-3 text-[#c9b99a]">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.7 1.5-1.7 1.5-3 0-2.2-1.8-4-4-4s-4 1.8-4 4v2H5v6h14v-6h-4z"></path></svg>
-      <span class="font-bold uppercase tracking-wider text-xs">Input Sequence</span>
-    </div>
-    <code class="text-sm text-zinc-700 block bg-white/50 p-3 rounded border border-zinc-100 font-mono">
-      ['view_samsung', 'cart_samsung', 'purchase_samsung']
-    </code>
-  </div>
+<div class="my-10 max-w-3xl mx-auto">
+  <div class="relative p-8 bg-white/60 backdrop-blur-sm border border-zinc-200 rounded-3xl shadow-xl overflow-hidden">
+    
+    <div class="absolute top-0 right-0 w-24 h-24 bg-[#c9b99a]/10 rounded-bl-full"></div>
 
-  <div class="bg-zinc-50 border-l-4 border-zinc-400 p-5 rounded-r-xl shadow-sm">
-    <div class="flex items-center gap-2 mb-2 text-zinc-500 text-xs font-bold uppercase tracking-widest">
-      <span>Process: PrefixSpan</span>
-    </div>
-    <p class="text-zinc-600 text-sm">
-      Minimum Support Threshold: <span class="font-mono font-bold text-zinc-800">0.1%</span> of total events
-    </p>
-  </div>
+    <div class="relative space-y-8">
+      
+      <div class="flex gap-4">
+        <div class="flex-none">
+          <div class="w-10 h-10 rounded-full bg-[#c9b99a] flex items-center justify-center text-white font-bold shadow-md shadow-[#c9b99a]/30">1</div>
+        </div>
+        <div class="flex-1 pt-1">
+          <h4 class="text-xs font-black uppercase tracking-widest text-zinc-400 mb-2">Input</h4>
+          <p class="text-zinc-600 text-sm mb-3">User event sequences:</p>
+          <div class="bg-white/80 border border-zinc-100 p-3 rounded-xl font-mono text-xs text-[#c9b99a] shadow-sm">
+            ['view_samsung', 'cart_samsung', 'purchase_samsung']
+          </div>
+        </div>
+      </div>
 
-  <div class="bg-zinc-800 p-5 rounded-xl shadow-lg border border-zinc-700">
-    <div class="flex items-center gap-2 mb-3 text-emerald-400">
-      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-      <span class="font-bold text-xs uppercase">Expected Output</span>
+      <div class="ml-5 border-l-2 border-dashed border-zinc-200 h-6"></div>
+
+      <div class="flex gap-4">
+        <div class="flex-none">
+          <div class="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center text-white font-bold">2</div>
+        </div>
+        <div class="flex-1 pt-1">
+          <h4 class="text-xs font-black uppercase tracking-widest text-zinc-400 mb-2">Process</h4>
+          <div class="inline-flex items-center gap-2 bg-zinc-100 px-4 py-2 rounded-full border border-zinc-200">
+            <span class="text-sm font-bold text-zinc-700">PrefixSpan</span>
+            <span class="w-1 h-1 bg-zinc-400 rounded-full"></span>
+            <span class="text-xs text-zinc-500 italic">min_support = 0.1%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ml-5 border-l-2 border-dashed border-zinc-200 h-6"></div>
+
+      <div class="flex gap-4">
+        <div class="flex-none">
+          <div class="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center text-white font-bold shadow-md shadow-emerald-500/20">3</div>
+        </div>
+        <div class="flex-1 pt-1">
+          <h4 class="text-xs font-black uppercase tracking-widest text-zinc-400 mb-2">Output</h4>
+          <div class="bg-emerald-50/50 border border-emerald-100 p-4 rounded-2xl">
+            <p class="text-emerald-800 text-sm font-medium leading-relaxed">
+              All frequent ordered patterns with occurrence counts
+            </p>
+          </div>
+        </div>
+      </div>
+
     </div>
-    <p class="text-zinc-300 text-sm italic">All frequent ordered patterns with occurrence counts</p>
   </div>
 </div>
 
@@ -121,21 +148,45 @@ PrefixSpan is a projection-based sequential pattern mining algorithm that discov
 
 For every frequent sequential pattern of length > 1, an association rule is derived:
 
-<div class="bg-white border border-zinc-200 p-6 rounded-2xl shadow-sm my-8">
-  <h4 class="text-sm font-bold text-zinc-400 uppercase tracking-widest mb-4">Association Rule Logic</h4>
-  
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
-    <div class="flex items-center justify-center bg-zinc-50 p-4 rounded-lg border border-dashed border-zinc-300">
-      <span class="font-mono text-lg font-bold text-zinc-800">A</span>
-      <svg xmlns="http://www.w3.org/2000/svg" class="mx-3 text-[#c9b99a]" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-      <span class="font-mono text-lg font-bold text-zinc-800">B</span>
+<div class="my-10 max-w-2xl mx-auto">
+  <div class="bg-white/40 backdrop-blur-sm border border-zinc-200 p-8 rounded-3xl shadow-sm">
+    
+    <div class="flex items-center gap-3 mb-6">
+      <div class="h-px flex-1 bg-zinc-200"></div>
+      <span class="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">Rule Derivation Logic</span>
+      <div class="h-px flex-1 bg-zinc-200"></div>
     </div>
 
-    <div class="bg-[#c9b99a]/10 p-4 rounded-lg border border-[#c9b99a]/20">
-      <p class="text-xs text-[#c9b99a] font-bold uppercase mb-1">Confidence Formula</p>
-      <div class="text-xl font-serif text-zinc-800">
-        $$Confidence = \frac{freq(A, B)}{freq(A)}$$
+    <div class="grid grid-cols-1 gap-8">
+      
+      <div class="flex justify-between items-start border-b border-zinc-100 pb-6">
+        <div class="space-y-1">
+          <p class="text-xs font-bold text-zinc-400 uppercase">Sequential Pattern</p>
+          <p class="font-mono text-lg text-zinc-800">[A, B]</p>
+        </div>
+        <div class="text-right space-y-1">
+          <p class="text-xs font-bold text-zinc-400 uppercase">Derived Rule</p>
+          <p class="font-mono text-lg text-[#c9b99a] font-bold text-zinc-800">A → B</p>
+        </div>
       </div>
+
+      <div class="py-4 flex flex-col items-center justify-center bg-white/50 rounded-2xl border border-white shadow-inner">
+        <p class="text-[10px] font-bold text-zinc-400 uppercase mb-4 tracking-widest">Confidence Calculation</p>
+        
+        <div class="flex items-center gap-4">
+          <span class="text-zinc-800 font-serif italic text-lg text-zinc-900">Confidence =</span>
+          
+          <div class="flex flex-col items-center">
+            <span class="px-4 py-1 font-mono text-sm text-zinc-800 border-b border-zinc-800">freq(A, B)</span>
+            <span class="px-4 py-1 font-mono text-sm text-zinc-800">freq(A)</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-[11px] leading-relaxed text-zinc-500 italic text-center px-6">
+        "Probability that a user who performed action <strong class="text-zinc-700">A</strong> will subsequently perform action <strong class="text-zinc-700">B</strong> within the same sequence."
+      </p>
+
     </div>
   </div>
 </div>
