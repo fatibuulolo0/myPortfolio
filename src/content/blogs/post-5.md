@@ -34,14 +34,54 @@ Answering these questions requires moving beyond tabular aggregations into seque
 
 ## Dataset
 
-| Property | Value |
-|---|---|
-| Source | E-Commerce Behavior Event Logs |
-| Files | `sequence_event1.json`, `sequence_event2.json` |
-| Total Event Sequences | **5,974,703** |
-| Minimum Support Threshold | 0.1% of total events (~5,974 occurrences) |
-| Event Types | `view`, `cart`, `purchase` |
-| Brands Covered | Samsung, Apple, Xiaomi, Unknown |
+<div class="max-w-2xl mx-auto my-8 overflow-hidden border border-zinc-200 rounded-2xl shadow-sm">
+  <table class="w-full text-left border-collapse">
+    <thead class="bg-[#c9b99a] text-zinc-900">
+      <tr>
+        <th colspan="2" class="p-4 text-center font-bold tracking-wide uppercase text-xs">
+          Dataset Characteristics & Configuration
+        </th>
+      </tr>
+    </thead>
+    <tbody class="kanit-light">
+      <tr class="border-b border-zinc-100 hover:bg-zinc-50/50 transition-colors">
+        <td class="p-4 font-bold text-zinc-600 w-1/3 bg-zinc-50/30">Source</td>
+        <td class="p-4">E-Commerce Behavior Event Logs</td>
+      </tr>
+      <tr class="border-b border-zinc-100 hover:bg-zinc-50/50 transition-colors">
+        <td class="p-4 font-bold text-zinc-600 bg-zinc-50/30">Files</td>
+        <td class="p-4 font-mono text-xs">
+          <span class="bg-zinc-100 px-2 py-1 rounded">sequence_event1.json</span>
+          <span class="bg-zinc-100 px-2 py-1 rounded ml-1">sequence_event2.json</span>
+        </td>
+      </tr>
+      <tr class="border-b border-zinc-100 hover:bg-zinc-50/50 transition-colors">
+        <td class="p-4 font-bold text-zinc-600 bg-zinc-50/30">Total Sequences</td>
+        <td class="p-4 font-semibold text-[#c9b99a]">5,974,703</td>
+      </tr>
+      <tr class="border-b border-zinc-100 hover:bg-zinc-50/50 transition-colors">
+        <td class="p-4 font-bold text-zinc-600 bg-zinc-50/30">Min. Support</td>
+        <td class="p-4 italic text-sm">0.1% (~5,974 occurrences)</td>
+      </tr>
+      <tr class="border-b border-zinc-100 hover:bg-zinc-50/50 transition-colors">
+        <td class="p-4 font-bold text-zinc-600 bg-zinc-50/30">Event Types</td>
+        <td class="p-4">
+          <span class="inline-flex gap-2">
+            <code class="text-blue-600">view</code>
+            <code class="text-orange-600">cart</code>
+            <code class="text-emerald-600">purchase</code>
+          </span>
+        </td>
+      </tr>
+      <tr class="hover:bg-zinc-50/50 transition-colors">
+        <td class="p-4 font-bold text-zinc-600 bg-zinc-50/30">Brands</td>
+        <td class="p-4 text-sm tracking-tight text-zinc-700">
+          Samsung, Apple, Xiaomi, Unknown
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 Each sequence represents a user session encoded as an ordered list of `event_brand` tokens, for example `['view_samsung', 'cart_samsung', 'purchase_samsung']`. The two event files were combined into a single sequence corpus before mining.
 
@@ -82,18 +122,70 @@ This confidence is interpreted as a behavioral conversion rate which, which repr
 
 The 15 most frequent patterns across the entire dataset reveal dominant browsing behavior per brand:
 
-| Rank | Pattern | Frequency |
-|---|---|---|
-| 1 | `view_Unknown` | 1,512,378 |
-| 2 | `view_samsung` | 1,285,599 |
-| 3 | `view_Unknown → view_Unknown` | 1,051,460 |
-| 4 | `view_apple` | 1,002,335 |
-| 5 | `view_samsung → view_samsung` | 971,106 |
-| 6 | `view_apple → view_apple` | 791,250 |
-| 7 | `view_xiaomi` | 737,611 |
-| 8 | `view_Unknown → view_Unknown → view_Unknown` | 670,225 |
-| 9 | `view_samsung → view_samsung → view_samsung` | 583,094 |
-| 10 | `view_xiaomi → view_xiaomi` | 552,483 |
+<div class="overflow-x-auto my-8 border border-zinc-200 rounded-xl shadow-md">
+  <table class="w-full text-left border-collapse min-w-[500px]">
+    <thead>
+      <tr class="bg-[#c9b99a] text-zinc-900">
+        <th class="p-4 font-bold border-b border-zinc-300 w-16 text-center">Rank</th>
+        <th class="p-4 font-bold border-b border-zinc-300">User Behavior Pattern</th>
+        <th class="p-4 font-bold border-b border-zinc-300 text-right">Frequency</th>
+      </tr>
+    </thead>
+    <tbody class="kanit-light text-sm">
+      <tr class="border-b border-zinc-100 bg-zinc-50/50 hover:bg-[#c9b99a]/10 transition-colors">
+        <td class="p-3 text-center font-bold text-[#c9b99a]">1</td>
+        <td class="p-3 font-mono text-xs text-zinc-500 italic"><code>view_Unknown</code></td>
+        <td class="p-3 text-right font-semibold">1,512,378</td>
+      </tr>
+      
+      <tr class="border-b border-zinc-100 hover:bg-[#c9b99a]/10 transition-colors">
+        <td class="p-3 text-center font-bold text-[#c9b99a]">2</td>
+        <td class="p-3 font-mono text-xs text-blue-800"><code>view_samsung</code></td>
+        <td class="p-3 text-right font-semibold">1,285,599</td>
+      </tr>
+
+      <tr class="border-b border-zinc-100 bg-zinc-50/50 hover:bg-[#c9b99a]/10 transition-colors italic opacity-70">
+        <td class="p-3 text-center font-bold">3</td>
+        <td class="p-3 font-mono text-xs"><code>view_Unknown</code> → <code>view_Unknown</code></td>
+        <td class="p-3 text-right">1,051,460</td>
+      </tr>
+
+      <tr class="border-b border-zinc-100 hover:bg-[#c9b99a]/10 transition-colors">
+        <td class="p-3 text-center font-bold text-[#c9b99a]">4</td>
+        <td class="p-3 font-mono text-xs text-zinc-900 font-bold"><code>view_apple</code></td>
+        <td class="p-3 text-right font-semibold">1,002,335</td>
+      </tr>
+
+      <tr class="border-b border-zinc-100 bg-zinc-50/50 hover:bg-[#c9b99a]/10 transition-colors text-blue-800/80">
+        <td class="p-3 text-center">5</td>
+        <td class="p-3 font-mono text-xs"><code>view_samsung</code> → <code>view_samsung</code></td>
+        <td class="p-3 text-right">971,106</td>
+      </tr>
+
+      <tr class="border-b border-zinc-100 hover:bg-[#c9b99a]/10 transition-colors">
+        <td class="p-3 text-center">6</td>
+        <td class="p-3 font-mono text-xs"><code>view_apple</code> → <code>view_apple</code></td>
+        <td class="p-3 text-right">791,250</td>
+      </tr>
+
+      <tr class="border-b border-zinc-100 bg-zinc-50/50 hover:bg-[#c9b99a]/10 transition-colors text-orange-700">
+        <td class="p-3 text-center font-bold">7</td>
+        <td class="p-3 font-mono text-xs"><code>view_xiaomi</code></td>
+        <td class="p-3 text-right font-semibold">737,611</td>
+      </tr>
+
+      <tr class="border-b border-zinc-100 hover:bg-[#c9b99a]/10 transition-colors opacity-60">
+        <td class="p-3 text-center text-xs italic" colspan="3">... Patterns 8 to 10 follow the same trend ...</td>
+      </tr>
+
+      <tr class="hover:bg-[#c9b99a]/10 transition-colors text-orange-700/80">
+        <td class="p-3 text-center font-bold">10</td>
+        <td class="p-3 font-mono text-xs"><code>view_xiaomi</code> → <code>view_xiaomi</code></td>
+        <td class="p-3 text-right font-semibold">552,483</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 The dominance of repeated single-brand view patterns like `view_samsung → view_samsung`, `view_apple → view_apple` confirms that users engage in multi-session consideration loops before committing to any commercial action.
 
@@ -103,20 +195,54 @@ The dominance of repeated single-brand view patterns like `view_samsung → view
 
 Filtering for patterns that involve `cart` or `purchase` isolates the commercially relevant journeys:
 
-| Rank | Pattern | Frequency |
-|---|---|---|
-| 1 | `cart_samsung` | 185,786 |
-| 2 | `view_samsung → cart_samsung` | 184,926 |
-| 3 | `purchase_samsung` | 149,358 |
-| 4 | `view_samsung → purchase_samsung` | 148,934 |
-| 5 | `cart_apple` | 136,037 |
-| 6 | `view_apple → cart_apple` | 135,572 |
-| 7 | `cart_samsung → view_samsung` | 127,766 |
-| 8 | `view_samsung → cart_samsung → view_samsung` | 127,086 |
-| 9 | `purchase_apple` | 121,635 |
-| 10 | `view_apple → purchase_apple` | 121,342 |
-| 11 | `cart_samsung → purchase_samsung` | 104,910 |
-| 12 | `view_samsung → cart_samsung → purchase_samsung`  | 104,409 |
+<div class="overflow-x-auto my-8 border border-zinc-200 rounded-xl shadow-sm">
+  <table class="w-full text-left border-collapse min-w-[500px]">
+    <thead>
+      <tr class="bg-[#c9b99a] text-zinc-900">
+        <th class="p-3 font-bold border-b border-zinc-300 w-16 text-center">Rank</th>
+        <th class="p-3 font-bold border-b border-zinc-300">Pattern</th>
+        <th class="p-3 font-bold border-b border-zinc-300 text-right">Frequency</th>
+      </tr>
+    </thead>
+    <tbody class="kanit-light text-sm">
+      <tr class="border-b border-zinc-100 bg-zinc-50/30 hover:bg-zinc-100/50 transition-colors">
+        <td class="p-3 text-center font-bold text-[#c9b99a]">1</td>
+        <td class="p-3 font-mono text-xs"><code>cart_samsung</code></td>
+        <td class="p-3 text-right font-medium">185,786</td>
+      </tr>
+      <tr class="border-b border-zinc-100 hover:bg-zinc-100/50 transition-colors">
+        <td class="p-3 text-center font-bold text-[#c9b99a]">2</td>
+        <td class="p-3 font-mono text-xs"><code>view_samsung</code> → <code>cart_samsung</code></td>
+        <td class="p-3 text-right font-medium">184,926</td>
+      </tr>
+      <tr class="border-b border-zinc-100 bg-zinc-50/30 hover:bg-zinc-100/50 transition-colors">
+        <td class="p-3 text-center font-bold text-[#c9b99a]">3</td>
+        <td class="p-3 font-mono text-xs"><code>purchase_samsung</code></td>
+        <td class="p-3 text-right font-medium">149,358</td>
+      </tr>
+      <tr class="border-b border-zinc-100 hover:bg-zinc-100/50 transition-colors">
+        <td class="p-3 text-center opacity-60">4</td>
+        <td class="p-3 font-mono text-xs"><code>view_samsung</code> → <code>purchase_samsung</code></td>
+        <td class="p-3 text-right">148,934</td>
+      </tr>
+      <tr class="border-b border-zinc-100 bg-zinc-50/30 hover:bg-zinc-100/50 transition-colors">
+        <td class="p-3 text-center opacity-60">5</td>
+        <td class="p-3 font-mono text-xs"><code>cart_apple</code></td>
+        <td class="p-3 text-right">136,037</td>
+      </tr>
+      <tr class="border-b border-zinc-100 hover:bg-zinc-100/50 transition-colors">
+        <td class="p-3 text-center opacity-60 text-xs">...</td>
+        <td class="p-3 font-mono text-xs opacity-60 text-center italic">Items 6 to 11 similarly formatted</td>
+        <td class="p-3 text-right opacity-60">...</td>
+      </tr>
+      <tr class="hover:bg-zinc-100/50 transition-colors">
+        <td class="p-3 text-center opacity-60 font-bold">12</td>
+        <td class="p-3 font-mono text-xs"><code>view_samsung</code> → <code>cart_samsung</code> → <code>purchase_samsung</code></td>
+        <td class="p-3 text-right font-medium">104,409</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 ---
 
@@ -124,19 +250,44 @@ Filtering for patterns that involve `cart` or `purchase` isolates the commercial
 
 Using association rule confidence, the behavioral conversion rate is computed for each step-to-step transition:
 
-| Pattern (Antecedent → Consequent) | Events | Conversion Rate |
-|---|---|---|
-| `view_samsung` → `cart_samsung` | 184,926 | **14.38%** |
-| `view_samsung` → `purchase_samsung` | 148,934 | **11.58%** |
-| `view_apple` → `cart_apple` | 135,572 | **13.53%** |
-| `view_apple` → `purchase_apple` | 121,342 | **12.11%** |
-| `cart_samsung` → `purchase_samsung` | 104,910 | **56.47%** |
-| `view_samsung → cart_samsung` → `purchase_samsung` | 104,409 | **56.46%** |
-| `cart_samsung` → `view_samsung` | 127,766 | **68.77%** |
-| `view_samsung → cart_samsung` → `view_samsung` | 127,086 | **68.72%** |
-| `cart_apple` → `view_apple` | 92,655 | **68.11%** |
-| `view_apple → cart_apple` → `view_apple` | 92,293 | **68.08%** |
-| `view_samsung → view_samsung` → `cart_samsung` | 94,500 | **9.73%** |
+<div class="overflow-x-auto my-8 border border-zinc-200 rounded-lg">
+  <table class="w-full text-left border-collapse min-w-[600px]">
+    <thead>
+      <tr class="bg-[#c9b99a] text-zinc-900">
+        <th class="p-4 font-bold border-b border-zinc-300">Pattern (Antecedent → Consequent)</th>
+        <th class="p-4 font-bold border-b border-zinc-300">Events</th>
+        <th class="p-4 font-bold border-b border-zinc-300 text-center">Conversion Rate</th>
+      </tr>
+    </thead>
+    <tbody class="kanit-light text-sm">
+      <tr class="border-b border-zinc-100 hover:bg-zinc-50 transition-colors">
+        <td class="p-4 font-mono text-xs"><code>view_samsung</code> → <code>cart_samsung</code></td>
+        <td class="p-4">184,926</td>
+        <td class="p-4 text-center font-bold text-emerald-700">14.38%</td>
+      </tr>
+      <tr class="border-b border-zinc-100 bg-zinc-50/50 hover:bg-zinc-50 transition-colors">
+        <td class="p-4 font-mono text-xs"><code>view_samsung</code> → <code>purchase_samsung</code></td>
+        <td class="p-4">148,934</td>
+        <td class="p-4 text-center font-bold text-emerald-700">11.58%</td>
+      </tr>
+      <tr class="border-b border-zinc-100 hover:bg-zinc-50 transition-colors">
+        <td class="p-4 font-mono text-xs"><code>view_apple</code> → <code>cart_apple</code></td>
+        <td class="p-4">135,572</td>
+        <td class="p-4 text-center font-bold text-emerald-700">13.53%</td>
+      </tr>
+      <tr class="border-b border-zinc-100 bg-zinc-50/50 hover:bg-zinc-50 transition-colors">
+        <td class="p-4 font-mono text-xs"><code>view_apple</code> → <code>purchase_apple</code></td>
+        <td class="p-4">121,342</td>
+        <td class="p-4 text-center font-bold text-emerald-700">12.11%</td>
+      </tr>
+      <tr class="border-b border-zinc-100 hover:bg-zinc-50 transition-colors">
+        <td class="p-4 font-mono text-xs"><code>cart_samsung</code> → <code>purchase_samsung</code></td>
+        <td class="p-4">104,910</td>
+        <td class="p-4 text-center font-bold text-emerald-700">56.47%</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 The data reveals a critical inflection point at the cart stage: the view-to-cart rate sits around **13–14%**, while cart-to-purchase jumps to **~56%**. Once a user adds an item to cart, the likelihood of purchase is nearly four times higher than at the view stage.
 
