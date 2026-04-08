@@ -3,7 +3,7 @@ title: "E-Commerce Behavior Mining: Sequential Pattern Mining with PrefixSpan & 
 description: "Mining over 5.9 million e-commerce user interaction events using PrefixSpan to discover sequential behavioral patterns, compute brand-level conversion rates, and visualize the complete customer journey funnel."
 author: "Fati Buulolo"
 image:
-  url: "../../assets/image-012/cover.png"
+  url: "../../assets/images-012/cover.png"
   alt: "E-Commerce Behavior Mining with PrefixSpan"
 pubDate: 2026-04-02
 tags:
