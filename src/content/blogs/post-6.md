@@ -194,7 +194,7 @@ The first page doubles as both a user-facing prediction tool and a data ingestio
 - **Prediction Result Card** — displays the predicted calorie output with burn rate (kcal/min) and intensity classification (Low / Moderate / High).
 - **SQLite Log Confirmation** — a success toast confirming the data has been written to the monitoring database.
 
-![Prediction_Display](../../assetsimages-013/prediction_display.png)
+![Prediction_Display](../../assets/images-013/prediction_display.png)
 
 ### Page 2 — MLOps Monitoring Dashboard
  
@@ -222,7 +222,7 @@ The second page is the operational monitoring interface. It is designed to be in
  
 **Live Log Table** — the last 10 rows inserted into `user_logs`, displayed in a formatted dataframe for real-time activity monitoring.
 
-![Dashboard_Display](../../assetsimages-013/dashboard_display.png)
+![Dashboard_Display](../../assets/images-013/dashboard_display.png)
 
 ---
 
