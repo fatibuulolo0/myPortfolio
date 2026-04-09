@@ -42,18 +42,18 @@ const techIcons = [
       <p class="kanit-regular text-balance text-xs sm:text-base">
         {siteConfig.hero?.text}
       </p>
-      <div
-        class="flex flex-col items-start text-xs sm:text-base gap-y-3 mt-3 sm:mt-12"
-      >
-        <Button 
-          href="https://drive.google.com/file/d/19yOlPltxwsKxfSnitaCM5wwHkNbdO4gb/view?usp=drive_link" 
-          target="_blank"
-          class="space-btn-filled"
-        >
-          View My CV
-        </Button>
+      <div class="mt-3 sm:mt-12 space-y-3">
+        <div>
+          <Button 
+            href="MASUKKAN_LINK_GDRIVE_CV_DISINI" 
+            target="_blank"
+            class="space-btn-filled"
+          >
+            View My CV
+          </Button>
+        </div>
 
-        <div class="flex flex-wrap items-center gap-x-2 gap-y-3">
+        <div class="flex flex-wrap items-center gap-2">
           {
             siteConfig.hero?.actions?.map((action, index) => (
               <Button
