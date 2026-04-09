@@ -43,20 +43,29 @@ const techIcons = [
         {siteConfig.hero?.text}
       </p>
       <div
-        class="flex flex-wrap items-center text-xs sm:text-base gap-x-2 gap-y-8 mt-3 sm:mt-12"
+        class="flex flex-col items-start text-xs sm:text-base gap-y-3 mt-3 sm:mt-12"
       >
-        {
-          siteConfig.hero?.actions?.map((action, index) => (
-            <Button
-              href={action.href}
-              class={index === 0 ? "space-btn-filled" : "space-btn-outlined"}
-            >
-              {action.text}
-            </Button>
-          ))
-        }
+        <Button 
+          href="https://drive.google.com/file/d/19yOlPltxwsKxfSnitaCM5wwHkNbdO4gb/view?usp=drive_link" 
+          target="_blank"
+          class="space-btn-filled"
+        >
+          View My CV
+        </Button>
+
+        <div class="flex flex-wrap items-center gap-x-2 gap-y-3">
+          {
+            siteConfig.hero?.actions?.map((action, index) => (
+              <Button
+                href={action.href}
+                class={index === 0 ? "space-btn-filled" : "space-btn-outlined"}
+              >
+                {action.text}
+              </Button>
+            ))
+          }
+        </div>
       </div>
-    </div>
 
     <div class="hidden sm:flex relative w-full sm:w-1/2 h-[300px] items-center justify-center pointer-events-none z-0">
       {techIcons.map((icon) => (
