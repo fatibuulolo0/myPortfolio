@@ -1,226 +1,339 @@
 ---
-title: "E-Commerce Behavior Mining: Sequential Pattern Mining with PrefixSpan & Association Rules"
-description: "Mining over 5.9 million e-commerce user interaction events using PrefixSpan to discover sequential behavioral patterns, compute brand-level conversion rates, and visualize the complete customer journey funnel."
+title: "SaliencyMap: Modeling Human Visual Attention for Ad Creative Optimization"
+description: "End-to-end saliency prediction pipeline from dataset preparation and VGG-16 encoder–decoder construction, through three-phase transfer learning training, to evaluation with KL-Divergence & AUC-Judd metrics."
 author: "Fati Buulolo"
 image:
-  url: "../../assets/image-012/cover.png"
-  alt: "E-Commerce Behavior Mining with PrefixSpan"
-pubDate: 2026-04-02
+  url: "../../assets/images-014/display.png"
+  alt: "SaliencyMap: Modeling Human Visual Attention"
+pubDate: 2026-04-09
 tags:
-  ["Python", "PrefixSpan", "Sequential Pattern Mining", "Association Rules", "E-Commerce"]
+  ["Python", "TensorFlow", "Keras", "VGG-16", "Transfer Learning", "Saliency Prediction", "Computer Vision", "Streamlit"]
 ---
 
 
 ## Overview
 
-Understanding *how* customers behave — not just what they buy — is a core challenge in e-commerce analytics. Purchase outcomes are rarely the result of a single action. They emerge from a sequence of interactions: a user views a product, compares alternatives, adds to cart, browses again, then decides.
+Every advertisement competes for a fraction of a second of human attention. Visual saliency, defined as the property of image regions that instinctively capture the eye, is a fundamental determinant of whether a creative succeeds or is ignored. Understanding where users look before they consciously decide to engage is arguably more valuable than any post-click conversion metric.
 
-This project applies **Sequential Pattern Mining (SPM)** using the **PrefixSpan** algorithm to extract ordered behavioral sequences from approximately 5.97 million raw e-commerce event logs. Association rule confidence is then used to compute **behavioral conversion rates** at each step of the customer journey, and the results are visualized through an interactive **Sankey diagram**.
+This project builds a deep learning saliency prediction model that, given any advertising image, outputs a spatially calibrated heatmap indicating the probability distribution of human eye fixations. The model is an **encoder–decoder network** built on a frozen **VGG-16** backbone trained on **ImageNet**, with a custom learned decoder trained against ground-truth fixation density maps from the [**SALICON**](https://www.salicon.net/) dataset.
+
+The final application is deployed as an interactive **Streamlit** web app on **Hugging Face Spaces**, enabling marketing teams and creatives to upload an ad and immediately receive actionable attention maps.
 
 ---
 
 ## Problem Statement
 
-Standard product analytics tools report aggregate metrics — total views, cart rates, purchase rates. What they miss is **sequential context**: the order in which events happen and how one action influences the next.
+Standard ad performance metrics (CTR, CPM, ROAS) are outcome signals, they just tell what happened. Two creatives with identical budgets can produce wildly different results because of pure visual design choices: where the headline sits, whether the CTA is in the visual periphery, or whether the product is obscured by a competing background element.
 
-Two core questions drive this project:
+Saliency maps answer a prior question: before a user decides anything, where is their eye? This project operationalises saliency prediction as:
 
-1. What are the most frequent ordered behavioral sequences users follow before purchasing?
-2. Given a specific sequence of prior actions, how likely is a user to convert at the next step?
-
-Answering these questions requires moving beyond tabular aggregations into **sequence-aware pattern mining**, which is what PrefixSpan is designed to solve.
+1. A **regression task** — given RGB pixels, predict a 2D probability map of eye fixation density.
+2. A **transfer learning problem** — leverage general visual features from VGG-16 and adapt them to fixation prediction via a supervised decoder.
 
 ---
 
-## Dataset
+## Dataset — SALICON
 
 | Property | Value |
 |---|---|
-| Source | E-Commerce Behavior Event Logs |
-| Files | `sequence_event1.json`, `sequence_event2.json` |
-| Total Event Sequences | **5,974,703** |
-| Minimum Support Threshold | 0.1% of total events (~5,974 occurrences) |
-| Event Types | `view`, `cart`, `purchase` |
-| Brands Covered | Samsung, Apple, Xiaomi, Unknown |
+| Dataset | SALICON (SALIency in CONtext) |
+| Images | MS-COCO images (training + validation split) |
+| Ground Truth | Eye-tracking fixation density maps (grayscale) |
+| Preprocessing | Rescaled to 224 × 224, pixel values normalised to [0, 1] |
+| Augmentation | Random rotation (±15°), horizontal flip |
 
-Each sequence represents a user session encoded as an ordered list of `event_brand` tokens, for example `['view_samsung', 'cart_samsung', 'purchase_samsung']`. The two event files were combined into a single sequence corpus before mining.
+The SALICON dataset provides paired `(image, fixation_map)` samples. Each fixation map is a continuous grayscale heatmap derived from aggregating multiple participants' eye-tracking fixation points, producing a smooth probability distribution over image regions.
 
 ---
 
-## Methodology
+## Model Architecture
 
-### Sequential Pattern Mining — PrefixSpan
+The architecture follows an **encoder–decoder** design, a natural choice for dense prediction tasks (analogous to semantic segmentation).
 
-PrefixSpan is a **projection-based** sequential pattern mining algorithm that discovers all frequent ordered subsequences without generating candidates. It works by iteratively projecting the database onto suffix subsequences for each frequent prefix, making it efficient on large datasets.
+### Encoder — VGG-16 (Frozen)
 
 ```
-Input  : User event sequences
-         e.g. ['view_samsung', 'cart_samsung', 'purchase_samsung']
-
-Process: PrefixSpan — min_support = 0.1% of total events
-
-Output : All frequent ordered patterns with occurrence counts
+Input: (224, 224, 3)
+  └─ VGG-16 convolutional backbone (weights='imagenet', trainable=False)
+     Output feature map: (7, 7, 512)
 ```
 
-### Conversion Rate via Association Rule Confidence
+The VGG-16 backbone is loaded with pretrained ImageNet weights and kept **frozen** during all training phases. The top (fully connected) layers are excluded.
 
-For every frequent sequential pattern of length > 1, an association rule is derived:
+### Decoder — Progressive Upsampling
 
-```
-Pattern  : [A, B]
-Rule     : A → B
-Confidence = freq(A, B) / freq(A)
-```
-
-This confidence is interpreted as a **behavioral conversion rate** — the probability that a user who performed action A will subsequently perform action B within the same session sequence.
-
----
-
-## Results
-
-### Top Frequent Sequential Patterns
-
-The 15 most frequent patterns across the entire dataset reveal dominant browsing behavior per brand:
-
-| Rank | Pattern | Frequency |
-|---|---|---|
-| 1 | `view_Unknown` | 1,512,378 |
-| 2 | `view_samsung` | 1,285,599 |
-| 3 | `view_Unknown → view_Unknown` | 1,051,460 |
-| 4 | `view_apple` | 1,002,335 |
-| 5 | `view_samsung → view_samsung` | 971,106 |
-| 6 | `view_apple → view_apple` | 791,250 |
-| 7 | `view_xiaomi` | 737,611 |
-| 8 | `view_Unknown × 3` | 670,225 |
-| 9 | `view_samsung × 3` | 583,094 |
-| 10 | `view_xiaomi → view_xiaomi` | 552,483 |
-
-The dominance of repeated single-brand view patterns — `view_samsung → view_samsung`, `view_apple → view_apple` — confirms that users engage in **multi-session consideration loops** before committing to any commercial action.
-
----
-
-### Business-Critical Patterns
-
-Filtering for patterns that involve `cart` or `purchase` isolates the commercially relevant journeys:
-
-| Rank | Pattern | Frequency |
-|---|---|---|
-| 1 | `cart_samsung` | 185,786 |
-| 2 | `view_samsung → cart_samsung` | 184,926 |
-| 3 | `purchase_samsung` | 149,358 |
-| 4 | `view_samsung → purchase_samsung` | 148,934 |
-| 5 | `cart_apple` | 136,037 |
-| 6 | `view_apple → cart_apple` | 135,572 |
-| 7 | `cart_samsung → view_samsung` | 127,766 |
-| 8 | `view_samsung → cart_samsung → view_samsung` | 127,086 |
-| 9 | `purchase_apple` | 121,635 |
-| 10 | `view_apple → purchase_apple` | 121,342 |
-| 11 | `cart_samsung → purchase_samsung` | 104,910 |
-| 12 | `view_samsung → cart_samsung → purchase_samsung` | 104,409 |
-
----
-
-### Conversion Rate Analysis
-
-Using association rule confidence, the behavioral conversion rate is computed for each step-to-step transition:
-
-| Pattern (Antecedent → Consequent) | Events | Conversion Rate |
-|---|---|---|
-| `view_samsung` → `cart_samsung` | 184,926 | **14.38%** |
-| `view_samsung` → `purchase_samsung` | 148,934 | **11.58%** |
-| `view_apple` → `cart_apple` | 135,572 | **13.53%** |
-| `view_apple` → `purchase_apple` | 121,342 | **12.11%** |
-| `cart_samsung` → `purchase_samsung` | 104,910 | **56.47%** |
-| `view_samsung → cart_samsung` → `purchase_samsung` | 104,409 | **56.46%** |
-| `cart_samsung` → `view_samsung` | 127,766 | **68.77%** |
-| `view_samsung → cart_samsung` → `view_samsung` | 127,086 | **68.72%** |
-| `cart_apple` → `view_apple` | 92,655 | **68.11%** |
-| `view_apple → cart_apple` → `view_apple` | 92,293 | **68.08%** |
-| `view_samsung → view_samsung` → `cart_samsung` | 94,500 | **9.73%** |
-
-The data reveals a critical inflection point at the cart stage: the view-to-cart rate sits around **13–14%**, while cart-to-purchase jumps to **~56%**. Once a user adds an item to cart, the likelihood of purchase is nearly four times higher than at the view stage.
-
----
-
-## Customer Journey Visualization
-
-The Sankey diagram below maps weighted event transitions across the top 30 business-critical patterns. Each node represents a behavioral state (`view`, `cart`, or `purchase` per brand), and each flow represents the volume of users moving between states.
-
-<iframe
-  src="../../assets/image-012/sankey_visualization.html"
-  width="100%"
-  height="580px"
-  frameborder="0"
-  style="border-radius: 8px; margin: 1rem 0;">
-</iframe>
-
-The diagram makes visible what the tables imply: the majority of user flow concentrates between Samsung and Apple journeys, with significant return loops from `cart` back to `view` — a behavioral signature of comparison shopping and price hesitation before final commitment.
-
----
-
-## Business Insights
-
-### 🏆 The Golden Path
-
-The most high-value sequential journey identified from the data:
+The decoder reconstructs spatial resolution through five consecutive `Conv2D → UpSampling2D` blocks:
 
 ```
-view_samsung  →  cart_samsung  →  purchase_samsung
+(7, 7, 512)
+  → Conv2D(512, 3×3, relu, same) + UpSampling2D(2×2)  →  (14, 14, 512)
+  → Conv2D(256, 3×3, relu, same) + UpSampling2D(2×2)  →  (28, 28, 256)
+  → Conv2D(128, 3×3, relu, same) + UpSampling2D(2×2)  →  (56, 56, 128)
+  → Conv2D(64, 3×3, relu, same)  + UpSampling2D(2×2)  →  (112, 112, 64)
+  → Conv2D(32, 3×3, relu, same)  + UpSampling2D(2×2)  →  (224, 224, 32)
+  → Conv2D(1, 1×1, sigmoid, same)                     →  (224, 224, 1)
 ```
 
-This three-step path was completed **104,409 times** and represents the clearest signal of a high-intent buyer. Any product or marketing intervention that accelerates a user through this path yields direct revenue impact.
+The final `1×1` convolution with `sigmoid` activation collapses the channel dimension to a single-channel saliency probability map in the range `[0, 1]`, spatially aligned with the input image.
+
+**Total architecture:**
+
+```python
+base_model = VGG16(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
+base_model.trainable = False
+
+x = base_model.output
+x = layers.Conv2D(512, (3,3), activation='relu', padding='same')(x)
+x = layers.UpSampling2D((2,2))(x)
+x = layers.Conv2D(256, (3,3), activation='relu', padding='same')(x)
+x = layers.UpSampling2D((2,2))(x)
+x = layers.Conv2D(128, (3,3), activation='relu', padding='same')(x)
+x = layers.UpSampling2D((2,2))(x)
+x = layers.Conv2D(64, (3,3), activation='relu', padding='same')(x)
+x = layers.UpSampling2D((2,2))(x)
+x = layers.Conv2D(32, (3,3), activation='relu', padding='same')(x)
+x = layers.UpSampling2D((2,2))(x)
+outputs = layers.Conv2D(1, (1,1), activation='sigmoid', padding='same')(x)
+
+model = tf.keras.Model(inputs=base_model.input, outputs=outputs)
+```
 
 ---
 
-### The Cart is the Conversion Tipping Point
+## Training Pipeline
 
-The view-to-cart rate (~14%) and cart-to-purchase rate (~56%) are not close — they are separated by a factor of four. This makes the cart stage the single highest-leverage point in the funnel. Reducing friction between `view` and `cart` — through urgency signals, social proof, or personalized offers for repeat viewers — will produce more downstream conversions than any equivalent effort at a later stage.
+Training was conducted in **three sequential phases** on Google Colab, each resuming from the best checkpoint of the previous phase. This phased approach was adopted to handle Colab session limits while maintaining training continuity.
 
----
+### Data Generator
 
-### Cart Abandonment Is a Browse-Back Loop
+A custom paired generator feeds synchronized `(image, fixation_map)` batches:
 
-The pattern `cart_samsung → view_samsung` achieved a confidence of **68.77%**, meaning nearly 7 in 10 users who add Samsung to cart return to browse before purchasing. This is not abandonment — it is **deliberation**. These users are still in the funnel. A well-timed cart recovery notification or a price-match prompt at this moment can recover a large share of these sessions.
+```python
+def combine_generator(gen1, gen2):
+    while True:
+        yield (next(gen1), next(gen2))
+```
 
----
+Both generators share the same `seed=42` to guarantee that augmentation transforms (rotation, flip) are applied identically to the image and its corresponding map.
 
-### Samsung Leads in Volume, Apple Leads in Efficiency
-
-| Brand | Views | Purchases | View-to-Purchase Rate |
-|---|---|---|---|
-| Samsung | 1,285,599 | 149,358 | 11.6% |
-| Apple | 1,002,335 | 121,635 | 12.1% |
-
-Apple converts a slightly higher share of its viewers into buyers. Samsung's greater raw volume comes with a broader and less committed audience. Each brand warrants a different retention strategy: Samsung users benefit from comparison features and decision-support tools; Apple users, already more decisive, respond better to upsell and accessory recommendations at checkout.
-
----
-
-### Xiaomi Has an Unresolved Funnel Drop
-
-Xiaomi is the **third most-viewed brand** in the dataset with 737,611 view events — yet it does not appear in any of the top commercial conversion patterns. The data implies that Xiaomi attracts significant awareness but fails to convert it. This gap between discovery and action points to product page friction, pricing misalignment, or insufficient purchase intent among Xiaomi's viewing audience.
+| Parameter | Value |
+|---|---|
+| Batch size | 16 |
+| Input size | 224 × 224 |
+| Augmentation | Rotation ±15°, horizontal flip |
+| Rescaling | Divide by 255 → [0, 1] |
+| Map color mode | Grayscale |
 
 ---
 
-## Conclusion
+### Phase 1 — Initial Training (Epochs 1–10)
 
-This project demonstrates that sequential pattern mining surfaces behavioral signals that aggregate funnel metrics simply cannot. The critical findings — a 56% cart-to-purchase conversion rate, a 68% browse-back rate from cart, and Xiaomi's invisible funnel — are all invisible in a standard view/cart/purchase breakdown. They only emerge when user behavior is analyzed as an **ordered sequence** rather than a collection of independent events.
+```python
+model.compile(
+    optimizer=Adam(learning_rate=1e-5),
+    loss='mse',
+    metrics=['mae']
+)
 
-PrefixSpan, combined with association rule confidence scoring, provides a scalable and interpretable framework for this kind of analysis. The Sankey diagram translates the pattern output into a visual format that makes these findings immediately actionable for product, marketing, and merchandising teams.
+checkpoint_callback = ModelCheckpoint(
+    filepath=checkpoint_path,
+    save_best_only=True,
+    monitor='loss',
+    mode='min',
+    verbose=1
+)
+
+history = model.fit(
+    train_generator,
+    steps_per_epoch=steps_per_epoch,
+    epochs=10,
+    callbacks=[checkpoint_callback]
+)
+```
+
+**Loss:** Mean Squared Error (MSE) between predicted saliency map and ground-truth fixation density. MSE is appropriate here because both tensors are continuous probability distributions in `[0, 1]`.
+
+**Optimizer:** Adam with a conservative learning rate of `1e-5` to protect the frozen VGG-16 feature representations from gradient interference while training only decoder weights.
+
+**Checkpoint strategy:** `save_best_only=True` with `monitor='loss'` ensures only the epoch with the lowest training loss is persisted, preventing regression from noisy late-epoch updates.
+
+---
+
+### Phase 2 — Resumed Training (Epochs 5–10, `initial_epoch=4`)
+
+The best checkpoint from Phase 1 was loaded and training resumed from epoch 5:
+
+```python
+model = tf.keras.models.load_model(checkpoint_path)
+
+history = model.fit(
+    train_generator,
+    steps_per_epoch=steps_per_epoch,
+    epochs=10,
+    initial_epoch=4,
+    callbacks=[checkpoint_callback]
+)
+```
+
+The `initial_epoch` argument ensures Keras correctly reports and tracks epoch numbers for logging continuity. The same checkpoint is overwritten if a better result is found.
+
+---
+
+### Phase 3 — Final Convergence (Epochs 9–10, `initial_epoch=8`)
+
+```python
+model = tf.keras.models.load_model(checkpoint_path)
+
+history = model.fit(
+    train_generator,
+    steps_per_epoch=steps_per_epoch,
+    epochs=10,
+    initial_epoch=8,
+    callbacks=[checkpoint_callback]
+)
+```
+
+This final phase allowed the model to converge fully from epoch 9 onward, squeezing the remaining gradient descent steps from the training schedule.
+
+---
+
+### Model Serialization
+
+After Phase 3 completed, the model was saved in two formats for portability:
+
+```python
+model.save('/content/drive/MyDrive/SALICON/model_final_saliency.keras')  
+model.save('/content/drive/MyDrive/SALICON/model_final_saliency.h5')     
+```
+
+The `.keras` format is preferred for deployment as it correctly serializes custom layers, optimizer state, and build configurations.
+
+---
+
+## Evaluation
+
+Evaluation was performed on a held-out **validation split** from the SALICON dataset.
+
+### Metrics
+
+#### KL-Divergence
+
+Measures the information-theoretic distance between the predicted distribution and the ground-truth fixation map. Lower is better.
+
+```python
+def calculate_kl_divergence(y_true, y_pred):
+    y_true = y_true.flatten().astype(np.float32)
+    y_pred = y_pred.flatten().astype(np.float32)
+    eps = 1e-10
+    y_true = y_true / (np.sum(y_true) + eps)
+    y_pred = y_pred / (np.sum(y_pred) + eps)
+    kl_div = np.sum(y_true * np.log((y_true + eps) / (y_pred + eps)))
+    return kl_div
+```
+
+#### AUC-Judd
+
+Area Under the ROC Curve computed with a per-image adaptive threshold (mean fixation value). Measures how well the predicted saliency map separates fixated from non-fixated pixels. Higher is better.
+
+```python
+def calculate_auc_judd(y_true, y_pred):
+    y_true_norm = y_true.flatten().astype(np.float32) / 255.0
+    y_pred_flat = y_pred.flatten().astype(np.float32)
+    threshold = np.mean(y_true_norm)
+    y_true_binary = (y_true_norm > threshold).astype(int)
+    if len(np.unique(y_true_binary)) == 1:
+        return np.nan
+    return roc_auc_score(y_true_binary, y_pred_flat)
+```
+
+### Inference Loop
+
+```python
+for i in tqdm(range(len(images_files))):
+    img = cv2.imread(img_path)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    img_resized = cv2.resize(img, (input_width, input_height))
+    img_input = img_resized.astype(np.float32) / 255.0
+    img_input = np.expand_dims(img_input, axis=0)
+
+    gt_map = cv2.imread(map_path, cv2.IMREAD_GRAYSCALE)
+    gt_map_resized = cv2.resize(gt_map, (input_width, input_height))
+
+    pred_map = model.predict(img_input, verbose=0)
+    pred_map = np.squeeze(pred_map)
+    pred_map = (pred_map - pred_map.min()) / (pred_map.max() - pred_map.min() + 1e-10)
+
+    kl = calculate_kl_divergence(gt_map_resized, pred_map)
+    auc = calculate_auc_judd(gt_map_resized, pred_map)
+    kl_scores.append(kl)
+    auc_scores.append(auc)
+```
+
+---
+
+## Inference & Heatmap Generation
+
+At inference time, the following pipeline converts a raw PIL image into a coloured saliency heatmap:
+
+```
+Input PIL image  (any resolution)
+  → Resize to (224, 224)
+  → Normalise to [0, 1]
+  → Add batch dimension → (1, 224, 224, 3)
+  → model.predict()  → (1, 224, 224, 1)
+  → squeeze + normalise to [0, 255] uint8
+  → cv2.resize() back to original resolution
+  → cv2.applyColorMap(COLORMAP_JET)
+  → Convert BGR → RGB
+Output: heatmap RGB array (H, W, 3)
+```
+
+**JET colormap interpretation:**
+- 🔴 Red / Warm → high predicted attention probability
+- 🟡 Yellow / Green → moderate attention
+- 🔵 Blue / Cool → low attention
+
+---
+
+## Business Application
+
+The saliency heatmap output can be used by marketing and creative teams to:
+
+1. **CTA Placement Audit** — Verify the call-to-action button falls inside a red/warm region of the heatmap. If it lands in a blue zone, the design is actively working against conversion intent.
+2. **Headline Hierarchy Check** — Confirm the primary headline draws more eye focus than secondary copy.
+3. **Logo Visibility** — Assess brand mark salience without relying on post-campaign recall surveys.
+4. **A/B Creative Pre-screening** — Compare heatmaps of two creative variants before running spend, selecting the one with more strategically distributed attention.
 
 ---
 
 ## Tools and Libraries
 
-- **Python** — pandas, collections
-- **Sequential Pattern Mining** — PrefixSpan 0.5.2
-- **Visualization** — Plotly (interactive Sankey diagram)
-- **Environment** — Google Colab
-- **Data Storage** — Google Drive
+| Category | Library |
+|---|---|
+| Deep Learning | TensorFlow / Keras |
+| Pretrained Model | VGG-16 (ImageNet weights) |
+| Computer Vision | OpenCV, Pillow |
+| Numerical Computing | NumPy |
+| Evaluation | scikit-learn (ROC-AUC) |
+| Visualization | Matplotlib |
+| Web Application | Streamlit |
+| Deployment | Docker, Hugging Face Spaces |
+| Training Environment | Google Colab + Google Drive |
 
 ---
 
 ## Source Code
 
 <strong style="background-color:#c9b99a; padding: 2px 6px; border-radius: 4px;">
-  <a href="https://github.com/FatiBuuloloo/E-commerce_Behavior_Mining_PrefixSpan_Association">View on GitHub</a>
+  <a href="https://github.com/FatiBuuloloo/SaliencyMap-Modeling_Human_Visual_Attention_for_Ad_Creative_Optimization-mini_project-014">View on GitHub</a>
 </strong>
+
+<strong style="background-color:#c9b99a; padding: 2px 6px; border-radius: 4px; margin-left: 8px;">
+  <a href="https://viewww-saliencymap-ads-optimization.hf.space/">Live Demo</a>
+</strong>
+
+<strong style="background-color:#c9b99a; padding: 2px 6px; border-radius: 4px; margin-left: 8px;">
+  <a href="https://huggingface.co/spaces/Viewww/SaliencyMap-Ads_Optimization/tree/main/">HuggingFace Space</a>
+</strong>
+
+</document_content>
