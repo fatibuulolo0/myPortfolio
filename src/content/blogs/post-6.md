@@ -178,7 +178,7 @@ The application is structured as a Streamlit multi-page app served from a single
             │ • baseline_distribution.pkl (PT, Scaler, LE, Bins)  │
             └─────────────────────────────────────────────────────┘
 ```
-<br />
+
 ### Artifact Storage and Presets (`baseline_distribution.pkl` and 'xgb_model.pkl')
  
 The baseline pickle file serves as the single source of truth for the monitoring system. It stores:
