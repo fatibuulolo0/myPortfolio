@@ -84,6 +84,7 @@ The solution is a monitoring pipeline that treats every user inference as a data
     </tbody>
   </table>
 </div>
+
 ---
 
 ## Model Background
@@ -145,6 +146,8 @@ The XGBoost model at the center of this system was selected after benchmarking e
 XGBoost delivered the lowest error across both metrics, achieving a test RMSE of **0.031** and MAE of **0.024** on Box-Cox transformed data — outperforming Random Forest by 28% on RMSE. This strong baseline is important for the monitoring layer: the system needs a high-quality model to be worth monitoring.
  
 All numeric features (`Age`, `Height`, `Weight`, `Duration`, `Heart_Rate`, `Body_Temp`) were transformed via Box-Cox (`PowerTransformer`) before training; `Gender` was label-encoded using LabelEncoder, and all features were scaled using StandardScaler. Transformers, LabelEncoder and StandardScaler are serialized into `baseline_distribution.pkl` alongside the baseline histograms, ensuring that live data can be transformed identically to training data at inference time.
+
+---
 
 ## System Architecture
  
@@ -277,7 +280,9 @@ def compute_kl_scores(baseline, df_live_transformed):
         scores[feat] = kl_divergence(baseline_prob, q_prob)
     return scores
 ```
+
 ---
+
 
 ## Dashboard Components
  
