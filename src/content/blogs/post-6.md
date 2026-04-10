@@ -34,15 +34,58 @@ The solution is a monitoring pipeline that treats every user inference as a data
 
 ## Technical Stack
 
-| Layer | Technology | Role |
-|---|---|---|
-| **Model** | XGBoost Regressor | Calorie prediction |
-| **Preprocessing** | PowerTransformer (Box-Cox) + LabelEncoder + StandardScaler| Feature normalization & encoding |
-| **Drift Metric** | KL Divergence | Distribution comparison |
-| **Database** | SQLite | Real-time inference logging |
-| **Frontend** | Streamlit (multi-page) | User interface |
-| **Visualization** | Plotly | Interactive charts |
-| **Deployment** | HuggingFace Spaces | Cloud hosting |
+<div class="my-8 overflow-hidden rounded-2xl border border-zinc-200 shadow-sm">
+  <table class="w-full text-left text-sm border-collapse bg-white/50 backdrop-blur-sm">
+    <thead class="bg-zinc-50 border-b border-zinc-200">
+      <tr>
+        <th class="px-6 py-4 font-bold text-zinc-400 uppercase tracking-widest text-[10px]">Layer</th>
+        <th class="px-6 py-4 font-bold text-zinc-400 uppercase tracking-widest text-[10px]">Technology Stack</th>
+        <th class="px-6 py-4 font-bold text-zinc-400 uppercase tracking-widest text-[10px]">Primary Role</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-zinc-100">
+      <tr class="hover:bg-white/80 transition-colors">
+        <td class="px-6 py-4 font-black text-zinc-800 text-xs tracking-tighter uppercase">Model</td>
+        <td class="px-6 py-4 text-[#c9b99a] font-bold">XGBoost Regressor</td>
+        <td class="px-6 py-4 text-zinc-600">Calorie prediction engine</td>
+      </tr>
+      <tr class="hover:bg-white/80 transition-colors">
+        <td class="px-6 py-4 font-black text-zinc-800 text-xs tracking-tighter uppercase">Preprocessing</td>
+        <td class="px-6 py-4 text-zinc-600 font-mono text-[11px] leading-tight">
+          PowerTransformer (Box-Cox) <br/> 
+          <span class="text-zinc-300">+</span> LabelEncoder <br/>
+          <span class="text-zinc-300">+</span> StandardScaler
+        </td>
+        <td class="px-6 py-4 text-zinc-500 text-xs italic">Feature normalization & encoding</td>
+      </tr>
+      <tr class="hover:bg-white/80 transition-colors">
+        <td class="px-6 py-4 font-black text-zinc-800 text-xs tracking-tighter uppercase">Drift Metric</td>
+        <td class="px-6 py-4 text-emerald-600 font-bold">KL Divergence</td>
+        <td class="px-6 py-4 text-zinc-600">Distribution monitoring</td>
+      </tr>
+      <tr class="hover:bg-white/80 transition-colors">
+        <td class="px-6 py-4 font-black text-zinc-800 text-xs tracking-tighter uppercase">Database</td>
+        <td class="px-6 py-4 text-zinc-600 font-mono">SQLite</td>
+        <td class="px-6 py-4 text-zinc-600">Real-time inference logging</td>
+      </tr>
+      <tr class="hover:bg-white/80 transition-colors">
+        <td class="px-6 py-4 font-black text-zinc-800 text-xs tracking-tighter uppercase">Frontend</td>
+        <td class="px-6 py-4 text-zinc-700 font-semibold">Streamlit <span class="text-[10px] text-zinc-400">(multi-page)</span></td>
+        <td class="px-6 py-4 text-zinc-600">Interactive user interface</td>
+      </tr>
+      <tr class="hover:bg-white/80 transition-colors">
+        <td class="px-6 py-4 font-black text-zinc-800 text-xs tracking-tighter uppercase">Visualization</td>
+        <td class="px-6 py-4 text-zinc-600">Plotly</td>
+        <td class="px-6 py-4 text-zinc-600">Dynamic system charts</td>
+      </tr>
+      <tr class="hover:bg-white/80 transition-colors">
+        <td class="px-6 py-4 font-black text-zinc-800 text-xs tracking-tighter uppercase">Deployment</td>
+        <td class="px-6 py-4 text-zinc-600">HuggingFace Spaces</td>
+        <td class="px-6 py-4 text-zinc-500 text-xs italic">Cloud hosting service</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 ---
 
@@ -50,15 +93,57 @@ The solution is a monitoring pipeline that treats every user inference as a data
  
 The XGBoost model at the center of this system was selected after benchmarking eight regression algorithms on the same dataset. Model selection focused on predictive accuracy, measured by RMSE and MAE on a held-out test set.
  
-| Model | RMSE | MAE |
-|---|---|---|
-| Linear Regression | 0.101 | 0.079 |
-| KNN | 0.089 | 0.069 |
-| Decision Tree | 0.075 | 0.053 |
-| SVR | 0.046 | 0.035 |
-| Gradient Boosting | 0.046 | 0.034 |
-| Random Forest | 0.043 | 0.030 |
-| **XGBoost** | **0.031** | **0.024** |
+<div class="my-8 overflow-hidden rounded-2xl border border-zinc-200 shadow-sm">
+  <table class="w-full text-left text-sm border-collapse bg-white/50 backdrop-blur-sm">
+    <thead class="bg-zinc-50 border-b border-zinc-200">
+      <tr>
+        <th class="px-6 py-4 font-bold text-zinc-400 uppercase tracking-widest text-[10px]">Model Architecture</th>
+        <th class="px-6 py-4 font-bold text-zinc-400 uppercase tracking-widest text-[10px]">RMSE</th>
+        <th class="px-6 py-4 font-bold text-zinc-400 uppercase tracking-widest text-[10px]">MAE</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-zinc-100">
+      <tr class="hover:bg-white/80 transition-colors">
+        <td class="px-6 py-4 text-zinc-700">Linear Regression</td>
+        <td class="px-6 py-4 text-zinc-500 font-mono text-xs">0.101</td>
+        <td class="px-6 py-4 text-zinc-500 font-mono text-xs">0.079</td>
+      </tr>
+      <tr class="hover:bg-white/80 transition-colors">
+        <td class="px-6 py-4 text-zinc-700">KNN</td>
+        <td class="px-6 py-4 text-zinc-500 font-mono text-xs">0.089</td>
+        <td class="px-6 py-4 text-zinc-500 font-mono text-xs">0.069</td>
+      </tr>
+      <tr class="hover:bg-white/80 transition-colors">
+        <td class="px-6 py-4 text-zinc-700">Decision Tree</td>
+        <td class="px-6 py-4 text-zinc-500 font-mono text-xs">0.075</td>
+        <td class="px-6 py-4 text-zinc-500 font-mono text-xs">0.053</td>
+      </tr>
+      <tr class="hover:bg-white/80 transition-colors">
+        <td class="px-6 py-4 text-zinc-700">SVR</td>
+        <td class="px-6 py-4 text-zinc-500 font-mono text-xs">0.046</td>
+        <td class="px-6 py-4 text-zinc-500 font-mono text-xs">0.035</td>
+      </tr>
+      <tr class="hover:bg-white/80 transition-colors">
+        <td class="px-6 py-4 text-zinc-700">Gradient Boosting</td>
+        <td class="px-6 py-4 text-zinc-500 font-mono text-xs">0.046</td>
+        <td class="px-6 py-4 text-zinc-500 font-mono text-xs">0.034</td>
+      </tr>
+      <tr class="hover:bg-white/80 transition-colors">
+        <td class="px-6 py-4 text-zinc-700">Random Forest</td>
+        <td class="px-6 py-4 text-zinc-500 font-mono text-xs">0.043</td>
+        <td class="px-6 py-4 text-zinc-500 font-mono text-xs">0.030</td>
+      </tr>
+      <tr class="bg-zinc-900 shadow-inner">
+        <td class="px-6 py-4 font-bold text-white flex items-center gap-2">
+          XGBoost 
+          <span class="bg-[#c9b99a] text-zinc-900 text-[9px] px-1.5 py-0.5 rounded font-black tracking-tighter uppercase">Best Model</span>
+        </td>
+        <td class="px-6 py-4 text-[#c9b99a] font-bold font-mono text-xs italic">0.031</td>
+        <td class="px-6 py-4 text-[#c9b99a] font-bold font-mono text-xs italic">0.024</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
  
 XGBoost delivered the lowest error across both metrics, achieving a test RMSE of **0.031** and MAE of **0.024** on Box-Cox transformed data — outperforming Random Forest by 28% on RMSE. This strong baseline is important for the monitoring layer: the system needs a high-quality model to be worth monitoring.
  
@@ -208,11 +293,57 @@ The second page is the operational monitoring interface. It is designed to be in
  
 **Feature Drift Cards** — six cards, one per numeric feature, each displaying the feature's KL score and a color-coded badge:
  
-| Badge Color | Condition | Meaning |
-|---|---|---|
-| 🟢 Green | KL < 0.1 | Distribution stable |
-| 🟡 Yellow | 0.1 ≤ KL < 0.5 | Moderate drift detected |
-| 🔴 Red | KL ≥ 0.5 | Critical drift — retraining advised |
+<div class="my-8 overflow-hidden rounded-2xl border border-zinc-200 shadow-sm">
+  <table class="w-full text-left text-sm border-collapse bg-white/50 backdrop-blur-sm">
+    <thead class="bg-zinc-50 border-b border-zinc-200">
+      <tr>
+        <th class="px-6 py-4 font-bold text-zinc-400 uppercase tracking-widest text-[10px]">Badge Status</th>
+        <th class="px-6 py-4 font-bold text-zinc-400 uppercase tracking-widest text-[10px]">KL Threshold</th>
+        <th class="px-6 py-4 font-bold text-zinc-400 uppercase tracking-widest text-[10px]">System Meaning</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-zinc-100">
+      <tr class="hover:bg-white/80 transition-colors">
+        <td class="px-6 py-4">
+          <div class="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full border border-emerald-100 shadow-sm">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span class="text-[11px] font-bold uppercase tracking-tight">Stable</span>
+          </div>
+        </td>
+        <td class="px-6 py-4 font-mono text-zinc-600 text-xs">KL < 0.1</td>
+        <td class="px-6 py-4 text-zinc-600">Distribution is consistent with training data</td>
+      </tr>
+      
+      <tr class="hover:bg-white/80 transition-colors">
+        <td class="px-6 py-4">
+          <div class="inline-flex items-center gap-2 bg-amber-50 text-amber-700 px-3 py-1 rounded-full border border-amber-100 shadow-sm">
+            <span class="h-2 w-2 rounded-full bg-amber-500"></span>
+            <span class="text-[11px] font-bold uppercase tracking-tight">Warning</span>
+          </div>
+        </td>
+        <td class="px-6 py-4 font-mono text-zinc-600 text-xs">0.1 ≤ KL < 0.5</td>
+        <td class="px-6 py-4 text-zinc-600 italic">Moderate drift detected — monitoring required</td>
+      </tr>
+
+      <tr class="hover:bg-white/80 transition-colors">
+        <td class="px-6 py-4">
+          <div class="inline-flex items-center gap-2 bg-rose-50 text-rose-700 px-3 py-1 rounded-full border border-rose-100 shadow-sm">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-rose-600"></span>
+            </span>
+            <span class="text-[11px] font-bold uppercase tracking-tight">Retrain</span>
+          </div>
+        </td>
+        <td class="px-6 py-4 font-mono text-zinc-600 text-xs font-bold">KL ≥ 0.5</td>
+        <td class="px-6 py-4 text-rose-600 font-semibold">Critical drift — immediate retraining advised</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
  
 **KL Bar Chart** — a comparative Plotly bar chart showing all six feature scores simultaneously, with horizontal reference lines at the warning (0.1) and critical (0.5) thresholds.
  
