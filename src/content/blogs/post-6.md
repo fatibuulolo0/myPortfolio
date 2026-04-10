@@ -179,6 +179,8 @@ The application is structured as a Streamlit multi-page app served from a single
             └─────────────────────────────────────────────────────┘
 ```
 
+<br>
+
 ### Artifact Storage and Presets (`baseline_distribution.pkl` and 'xgb_model.pkl')
  
 The baseline pickle file serves as the single source of truth for the monitoring system. It stores:
@@ -228,6 +230,8 @@ val_inversed = float(inversed_result[0, 6])
 log_to_db(gender_enc, age_pt, h_pt, w_pt, dur_pt, hr_pt, bt_pt, val_transformed)
 ```
 
+<br>
+
 ### **Drift Computation (Page 2)**
  
 When the dashboard loads:
@@ -238,7 +242,7 @@ When the dashboard loads:
 4. KL Divergence is computed between the baseline **P** and live **Q** for each feature.
 
 <div class="my-8 p-6 bg-zinc-50 border-l-4 border-[#c9b99a] rounded-r-xl shadow-sm italic text-center">
-  <p class="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400 mb-4">Kullback-Leibler Divergence Formula</p>
+  <p class="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400 mb-4 font-bold">Kullback-Leibler Divergence Formula</p>
   
   $$D_{KL}(P \parallel Q) = \sum_{i \in \mathcal{X}} P(i) \log \left( \frac{P(i)}{Q(i)} \right)$$
   
@@ -287,6 +291,8 @@ The first page doubles as both a user-facing prediction tool and a data ingestio
 - **SQLite Log Confirmation** — a success toast confirming the data has been written to the monitoring database.
 
 ![Prediction_Display](../../assets/images-013/prediction_display.png)
+
+<br>
 
 ### Page 2 — MLOps Monitoring Dashboard
  
