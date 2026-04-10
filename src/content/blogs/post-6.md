@@ -181,7 +181,7 @@ The application is structured as a Streamlit multi-page app served from a single
 
 <br>
 
-### Artifact Storage and Presets (`baseline_distribution.pkl` and 'xgb_model.pkl')
+### **Artifact Storage and Presets (`baseline_distribution.pkl` and 'xgb_model.pkl')**
  
 The baseline pickle file serves as the single source of truth for the monitoring system. It stores:
 ```
@@ -281,7 +281,7 @@ def compute_kl_scores(baseline, df_live_transformed):
 
 ## Dashboard Components
  
-### Page 1 — User Prediction
+### **Page 1 — User Prediction**
  
 The first page doubles as both a user-facing prediction tool and a data ingestion interface for the monitoring pipeline.
  
@@ -294,7 +294,7 @@ The first page doubles as both a user-facing prediction tool and a data ingestio
 
 <br>
 
-### Page 2 — MLOps Monitoring Dashboard
+### **Page 2 — MLOps Monitoring Dashboard**
  
 The second page is the operational monitoring interface. It is designed to be interpretable at a glance.
  
