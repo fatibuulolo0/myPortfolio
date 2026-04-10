@@ -13,7 +13,7 @@ tags:
 
 ## Overview
 
-Deploying a machine learning model is not the end of a project, its the beginning of a new set of problems. Once a model moves to production, the data that flow in begins to evolve. User demographics shift, device sensors recalibrate, seasonal patterns emerge. If left unmonitored, the gap between the data distribution that the model was trained on and the data distribution it now receives will silently erode its performance. This a phenomenon known as **data drift**.
+Deploying a machine learning model is not the end of a project, its the beginning of a new set of problems. Once a model moves to production, the data that flow in begins to evolve. User demographics shift, device sensors recalibrate, seasonal patterns emerge. If left unmonitored, the gap between the data distribution that the model was trained on and the data distribution it now receives will silently erode its performance. This a phenomenon known as **Covariate Shift**.
  
 This project builds a complete **MLOps monitoring system** around a trained XGBoost regression model that predicts calorie expenditure from biometric and workout data. The system logs every real-time user input to a SQLite database, transforms that live data to match the training scale, and computes **KL Divergence** between the live and baseline distributions for all features. The results are surfaced through a two-page Streamlit dashboard designed for continuous production monitoring.
 
@@ -236,6 +236,16 @@ When the dashboard loads:
 2. The dashboard maps the database columns (which are already in Box-Cox transformed scale) to the original feature names for consistency with the baseline.
 3. For each feature, the live data is binned using the baseline bin edges to produce distribution **Q**.
 4. KL Divergence is computed between the baseline **P** and live **Q** for each feature.
+
+<div class="my-8 p-6 bg-zinc-50 border-l-4 border-[#c9b99a] rounded-r-xl shadow-sm italic text-center">
+  <p class="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400 mb-4">Kullback-Leibler Divergence Formula</p>
+  
+  $$D_{KL}(P \parallel Q) = \sum_{i \in \mathcal{X}} P(i) \log \left( \frac{P(i)}{Q(i)} \right)$$
+  
+  <p class="mt-4 text-sm text-zinc-500 non-italic">
+    Where $P$ denotes the <strong>baseline distribution</strong> derived from training data, and $Q$ denotes the <strong>actual distribution</strong> observed in production.
+  </p>
+</div>
 
 ```python
 def kl_divergence(p, q):
