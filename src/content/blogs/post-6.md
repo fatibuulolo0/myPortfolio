@@ -244,13 +244,17 @@ When the dashboard loads:
 3. For each feature, the live data is binned using the baseline bin edges to produce distribution **Q**.
 4. KL Divergence is computed between the baseline **P** and live **Q** for each feature.
 
-<div class="my-8 p-6 bg-zinc-50 border-l-4 border-[#c9b99a] rounded-r-xl shadow-sm italic text-center">
-  <p class="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400 mb-4 font-bold">Kullback-Leibler Divergence Formula</p>
+<div class="my-8 p-8 bg-zinc-50 border-l-4 border-[#c9b99a] rounded-r-2xl shadow-sm text-center">
+  <p class="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400 mb-6">
+    Kullback-Leibler Divergence Formula
+  </p>
   
-  $$D_{KL}(P \parallel Q) = \sum_{i \in \mathcal{X}} P(i) \log \left( \frac{P(i)}{Q(i)} \right)$$
+  <div class="py-4 text-zinc-800">
+    $$D_{KL}(P \parallel Q) = \sum_{i \in \mathcal{X}} P(i) \log \left( \frac{P(i)}{Q(i)} \right)$$
+  </div>
   
-  <p class="mt-4 text-sm text-zinc-500 non-italic">
-    Where $P$ denotes the <strong>baseline distribution</strong> derived from training data, and $Q$ denotes the <strong>actual distribution</strong> observed in production.
+  <p class="mt-6 text-sm text-zinc-500 leading-relaxed">
+    Where <span class="italic font-serif">$P$</span> denotes the <strong class="text-zinc-700">baseline distribution</strong> derived from training data, and <span class="italic font-serif">$Q$</span> denotes the <strong class="text-zinc-700">actual distribution</strong> observed in production.
   </p>
 </div>
 
