@@ -150,9 +150,7 @@ All numeric features (`Age`, `Height`, `Weight`, `Duration`, `Heart_Rate`, `Body
  
 The application is structured as a Streamlit multi-page app served from a single `app.py` entry point with two pages accessible via the sidebar.
  
-```html
-<div class="mb-10 overflow-x-auto">
-<pre class="bg-zinc-900 text-zinc-300 p-6 rounded-2xl font-mono text-[10px] leading-relaxed shadow-xl">
+```
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                            STREAMLIT APPLICATION                            │
 │                                                                             │
@@ -179,13 +177,8 @@ The application is structured as a Streamlit multi-page app served from a single
             │ • xgb_model.pkl (XGBoost Regressor)                 │
             │ • baseline_distribution.pkl (PT, Scaler, LE, Bins)  │
             └─────────────────────────────────────────────────────┘
-</pre>
-</div>
-
-<h3 class="text-lg font-bold text-zinc-800 mb-4">
-  Artifact Storage and Presets (<code class="text-sm bg-zinc-100 px-1 rounded">baseline_distribution.pkl</code> and <code class="text-sm bg-zinc-100 px-1 rounded">xgb_model.pkl</code>)
-</h3>
-
+```
+<br />
 ### Artifact Storage and Presets (`baseline_distribution.pkl` and 'xgb_model.pkl')
  
 The baseline pickle file serves as the single source of truth for the monitoring system. It stores:
