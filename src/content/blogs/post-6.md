@@ -46,7 +46,7 @@ The solution is a monitoring pipeline that treats every user inference as a data
     <tbody class="divide-y divide-zinc-100">
       <tr class="hover:bg-white/80 transition-colors">
         <td class="px-6 py-4 font-black text-zinc-800 text-xs tracking-tighter uppercase">Model</td>
-        <td class="px-6 py-4 text-[#c9b99a] font-bold">XGBoost Regressor</td>
+        <td class="px-6 py-4 text-zinc-700 font-semibold">XGBoost Regressor</td>
         <td class="px-6 py-4 text-zinc-600">Calorie prediction engine</td>
       </tr>
       <tr class="hover:bg-white/80 transition-colors">
@@ -60,12 +60,12 @@ The solution is a monitoring pipeline that treats every user inference as a data
       </tr>
       <tr class="hover:bg-white/80 transition-colors">
         <td class="px-6 py-4 font-black text-zinc-800 text-xs tracking-tighter uppercase">Drift Metric</td>
-        <td class="px-6 py-4 text-emerald-600 font-bold">KL Divergence</td>
+        <td class="px-6 py-4 text-zinc-700 font-semibold">KL Divergence</td>
         <td class="px-6 py-4 text-zinc-600">Distribution monitoring</td>
       </tr>
       <tr class="hover:bg-white/80 transition-colors">
         <td class="px-6 py-4 font-black text-zinc-800 text-xs tracking-tighter uppercase">Database</td>
-        <td class="px-6 py-4 text-zinc-600 font-mono">SQLite</td>
+        <td class="px-6 py-4 text-zinc-600 font-mono text-xs">SQLite</td>
         <td class="px-6 py-4 text-zinc-600">Real-time inference logging</td>
       </tr>
       <tr class="hover:bg-white/80 transition-colors">
@@ -86,7 +86,6 @@ The solution is a monitoring pipeline that treats every user inference as a data
     </tbody>
   </table>
 </div>
-
 ---
 
 ## Model Background
@@ -313,10 +312,9 @@ The second page is the operational monitoring interface. It is designed to be in
             <span class="text-[11px] font-bold uppercase tracking-tight">Stable</span>
           </div>
         </td>
-        <td class="px-6 py-4 font-mono text-zinc-600 text-xs">KL < 0.1</td>
+        <td class="px-6 py-4 font-mono text-zinc-600 text-xs">KL &lt; 0.1</td>
         <td class="px-6 py-4 text-zinc-600">Distribution is consistent with training data</td>
       </tr>
-      
       <tr class="hover:bg-white/80 transition-colors">
         <td class="px-6 py-4">
           <div class="inline-flex items-center gap-2 bg-amber-50 text-amber-700 px-3 py-1 rounded-full border border-amber-100 shadow-sm">
@@ -324,10 +322,9 @@ The second page is the operational monitoring interface. It is designed to be in
             <span class="text-[11px] font-bold uppercase tracking-tight">Warning</span>
           </div>
         </td>
-        <td class="px-6 py-4 font-mono text-zinc-600 text-xs">0.1 ≤ KL < 0.5</td>
+        <td class="px-6 py-4 font-mono text-zinc-600 text-xs">0.1 ≤ KL &lt; 0.5</td>
         <td class="px-6 py-4 text-zinc-600 italic">Moderate drift detected — monitoring required</td>
       </tr>
-
       <tr class="hover:bg-white/80 transition-colors">
         <td class="px-6 py-4">
           <div class="inline-flex items-center gap-2 bg-rose-50 text-rose-700 px-3 py-1 rounded-full border border-rose-100 shadow-sm">
