@@ -34,13 +34,40 @@ Saliency maps answer a prior question: before a user decides anything, where is 
 
 ## Dataset — SALICON
 
-| Property | Value |
-|---|---|
-| Dataset | SALICON (SALIency in CONtext) |
-| Images | MS-COCO images (training + validation split) |
-| Ground Truth | Eye-tracking fixation density maps (grayscale) |
-| Preprocessing | Rescaled to 224 × 224, pixel values normalised to [0, 1] |
-| Augmentation | Random rotation (±15°), horizontal flip |
+<div class="my-8 overflow-hidden rounded-2xl border border-zinc-200 shadow-sm">
+  <table class="w-full text-left text-sm border-collapse bg-white/50 backdrop-blur-sm">
+    <thead class="bg-zinc-50 border-b border-zinc-200">
+      <tr>
+        <th class="px-6 py-4 font-bold text-zinc-400 uppercase tracking-widest text-[10px]">Property</th>
+        <th class="px-6 py-4 font-bold text-zinc-400 uppercase tracking-widest text-[10px]">Value</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-zinc-100">
+      <tr class="hover:bg-white/80 transition-colors">
+        <td class="px-6 py-4 font-semibold text-zinc-700">Dataset</td>
+        <td class="px-6 py-4 text-zinc-600 italic">SALICON (SALIency in CONtext)</td>
+      </tr>
+      <tr class="hover:bg-white/80 transition-colors">
+        <td class="px-6 py-4 font-semibold text-zinc-700">Images</td>
+        <td class="px-6 py-4 text-zinc-600">MS-COCO images (training + validation split)</td>
+      </tr>
+      <tr class="hover:bg-white/80 transition-colors">
+        <td class="px-6 py-4 font-semibold text-zinc-700">Ground Truth</td>
+        <td class="px-6 py-4 text-zinc-600 text-xs">Eye-tracking fixation density maps (grayscale)</td>
+      </tr>
+      <tr class="hover:bg-white/80 transition-colors">
+        <td class="px-6 py-4 font-semibold text-zinc-700">Preprocessing</td>
+        <td class="px-6 py-4 text-zinc-600">
+          <span class="bg-zinc-100 px-2 py-1 rounded font-mono text-[11px]">224 × 224</span>, normalised to [0, 1]
+        </td>
+      </tr>
+      <tr class="hover:bg-white/80 transition-colors">
+        <td class="px-6 py-4 font-semibold text-zinc-700">Augmentation</td>
+        <td class="px-6 py-4 text-zinc-600">Random rotation (±15°), horizontal flip</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 The SALICON dataset provides paired `(image, fixation_map)` samples. Each fixation map is a continuous grayscale heatmap derived from aggregating multiple participants' eye-tracking fixation points, producing a smooth probability distribution over image regions.
 
@@ -116,13 +143,40 @@ def combine_generator(gen1, gen2):
 
 Both generators share the same `seed=42` to guarantee that augmentation transforms (rotation, flip) are applied identically to the image and its corresponding map.
 
-| Parameter | Value |
-|---|---|
-| Batch size | 16 |
-| Input size | 224 × 224 |
-| Augmentation | Rotation ±15°, horizontal flip |
-| Rescaling | Divide by 255 → [0, 1] |
-| Map color mode | Grayscale |
+<div class="my-8 overflow-hidden rounded-2xl border border-zinc-200 shadow-sm">
+  <table class="w-full text-left text-sm border-collapse bg-white/50 backdrop-blur-sm">
+    <thead class="bg-zinc-50 border-b border-zinc-200">
+      <tr>
+        <th class="px-6 py-4 font-bold text-zinc-400 uppercase tracking-widest text-[10px]">Parameter</th>
+        <th class="px-6 py-4 font-bold text-zinc-400 uppercase tracking-widest text-[10px]">Value</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-zinc-100">
+      <tr class="hover:bg-white/80 transition-colors">
+        <td class="px-6 py-4 font-semibold text-zinc-700">Batch size</td>
+        <td class="px-6 py-4 text-zinc-600 font-mono">16</td>
+      </tr>
+      <tr class="hover:bg-white/80 transition-colors">
+        <td class="px-6 py-4 font-semibold text-zinc-700">Input size</td>
+        <td class="px-6 py-4 text-zinc-600">224 × 224</td>
+      </tr>
+      <tr class="hover:bg-white/80 transition-colors">
+        <td class="px-6 py-4 font-semibold text-zinc-700">Augmentation</td>
+        <td class="px-6 py-4 text-zinc-600">Rotation ±15°, horizontal flip</td>
+      </tr>
+      <tr class="hover:bg-white/80 transition-colors">
+        <td class="px-6 py-4 font-semibold text-zinc-700">Rescaling</td>
+        <td class="px-6 py-4 text-zinc-600">
+          Divide by 255 <span class="text-zinc-400 mx-1">→</span> <span class="bg-zinc-100 px-2 py-0.5 rounded text-[11px] font-mono">[0, 1]</span>
+        </td>
+      </tr>
+      <tr class="hover:bg-white/80 transition-colors">
+        <td class="px-6 py-4 font-semibold text-zinc-700">Map color mode</td>
+        <td class="px-6 py-4 text-zinc-600 italic">Grayscale</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 ---
 
@@ -308,17 +362,54 @@ The saliency heatmap output can be used by marketing and creative teams to:
 
 ## Tools and Libraries
 
-| Category | Library |
-|---|---|
-| Deep Learning | TensorFlow / Keras |
-| Pretrained Model | VGG-16 (ImageNet weights) |
-| Computer Vision | OpenCV, Pillow |
-| Numerical Computing | NumPy |
-| Evaluation | scikit-learn (ROC-AUC) |
-| Visualization | Matplotlib |
-| Web Application | Streamlit |
-| Deployment | Docker, Hugging Face Spaces |
-| Training Environment | Google Colab + Google Drive |
+<div class="my-8 overflow-hidden rounded-2xl border border-zinc-200 shadow-sm">
+  <table class="w-full text-left text-sm border-collapse bg-white/50 backdrop-blur-sm">
+    <thead class="bg-zinc-50 border-b border-zinc-200">
+      <tr>
+        <th class="px-6 py-4 font-bold text-zinc-400 uppercase tracking-widest text-[10px]">Category</th>
+        <th class="px-6 py-4 font-bold text-zinc-400 uppercase tracking-widest text-[10px]">Library / Tool</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-zinc-100">
+      <tr class="hover:bg-white/80 transition-colors">
+        <td class="px-6 py-4 font-semibold text-zinc-700">Deep Learning</td>
+        <td class="px-6 py-4 text-zinc-600">TensorFlow / Keras</td>
+      </tr>
+      <tr class="hover:bg-white/80 transition-colors">
+        <td class="px-6 py-4 font-semibold text-zinc-700">Pretrained Model</td>
+        <td class="px-6 py-4 text-zinc-600 font-mono text-xs">VGG-16 (ImageNet weights)</td>
+      </tr>
+      <tr class="hover:bg-white/80 transition-colors">
+        <td class="px-6 py-4 font-semibold text-zinc-700">Computer Vision</td>
+        <td class="px-6 py-4 text-zinc-600">OpenCV, Pillow</td>
+      </tr>
+      <tr class="hover:bg-white/80 transition-colors">
+        <td class="px-6 py-4 font-semibold text-zinc-700">Numerical Computing</td>
+        <td class="px-6 py-4 text-zinc-600 font-mono text-xs">NumPy</td>
+      </tr>
+      <tr class="hover:bg-white/80 transition-colors">
+        <td class="px-6 py-4 font-semibold text-zinc-700">Evaluation</td>
+        <td class="px-6 py-4 text-zinc-600">scikit-learn (ROC-AUC)</td>
+      </tr>
+      <tr class="hover:bg-white/80 transition-colors">
+        <td class="px-6 py-4 font-semibold text-zinc-700">Visualization</td>
+        <td class="px-6 py-4 text-zinc-600">Matplotlib</td>
+      </tr>
+      <tr class="hover:bg-white/80 transition-colors">
+        <td class="px-6 py-4 font-semibold text-zinc-700">Web Application</td>
+        <td class="px-6 py-4 text-[#c9b99a] font-bold">Streamlit</td>
+      </tr>
+      <tr class="hover:bg-white/80 transition-colors">
+        <td class="px-6 py-4 font-semibold text-zinc-700">Deployment</td>
+        <td class="px-6 py-4 text-zinc-600">Hugging Face Spaces</td>
+      </tr>
+      <tr class="hover:bg-white/80 transition-colors">
+        <td class="px-6 py-4 font-semibold text-zinc-700">Training Environment</td>
+        <td class="px-6 py-4 text-zinc-500 text-xs italic">Google Colab + Google Drive</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 ---
 
