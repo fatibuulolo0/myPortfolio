@@ -426,5 +426,3 @@ The saliency heatmap output can be used by marketing and creative teams to:
 <strong style="background-color:#c9b99a; padding: 2px 6px; border-radius: 4px; margin-left: 8px;">
   <a href="https://huggingface.co/spaces/Viewww/SaliencyMap-Ads_Optimization/tree/main/">HuggingFace Space</a>
 </strong>
-
-</document_content>
