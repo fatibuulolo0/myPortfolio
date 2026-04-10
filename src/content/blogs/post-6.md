@@ -36,52 +36,50 @@ The solution is a monitoring pipeline that treats every user inference as a data
 
 <div class="my-8 overflow-hidden rounded-2xl border border-zinc-200 shadow-sm">
   <table class="w-full text-left text-sm border-collapse bg-white/50 backdrop-blur-sm">
-    <thead class="bg-zinc-50 border-b border-zinc-200">
+    <thead class="bg-zinc-50 border-b border-zinc-200 text-zinc-600">
       <tr>
-        <th class="px-6 py-4 font-bold text-zinc-400 uppercase tracking-widest text-[10px]">Layer</th>
-        <th class="px-6 py-4 font-bold text-zinc-400 uppercase tracking-widest text-[10px]">Technology Stack</th>
-        <th class="px-6 py-4 font-bold text-zinc-400 uppercase tracking-widest text-[10px]">Primary Role</th>
+        <th class="px-6 py-4 font-normal">Layer</th>
+        <th class="px-6 py-4 font-normal">Technology Stack</th>
+        <th class="px-6 py-4 font-normal">Primary Role</th>
       </tr>
     </thead>
-    <tbody class="divide-y divide-zinc-100">
+    <tbody class="divide-y divide-zinc-100 text-zinc-600">
       <tr class="hover:bg-white/80 transition-colors">
-        <td class="px-6 py-4 font-black text-zinc-800 text-xs tracking-tighter uppercase">Model</td>
-        <td class="px-6 py-4 text-zinc-700 font-semibold">XGBoost Regressor</td>
-        <td class="px-6 py-4 text-zinc-600">Calorie prediction engine</td>
+        <td class="px-6 py-4">Model</td>
+        <td class="px-6 py-4">XGBoost Regressor</td>
+        <td class="px-6 py-4">Calorie prediction engine</td>
       </tr>
       <tr class="hover:bg-white/80 transition-colors">
-        <td class="px-6 py-4 font-black text-zinc-800 text-xs tracking-tighter uppercase">Preprocessing</td>
-        <td class="px-6 py-4 text-zinc-600 font-mono text-[11px] leading-tight">
-          PowerTransformer (Box-Cox) <br/> 
-          <span class="text-zinc-300">+</span> LabelEncoder <br/>
-          <span class="text-zinc-300">+</span> StandardScaler
+        <td class="px-6 py-4">Preprocessing</td>
+        <td class="px-6 py-4">
+          PowerTransformer (Box-Cox), LabelEncoder, StandardScaler
         </td>
-        <td class="px-6 py-4 text-zinc-500 text-xs italic">Feature normalization & encoding</td>
+        <td class="px-6 py-4">Feature normalization & encoding</td>
       </tr>
       <tr class="hover:bg-white/80 transition-colors">
-        <td class="px-6 py-4 font-black text-zinc-800 text-xs tracking-tighter uppercase">Drift Metric</td>
-        <td class="px-6 py-4 text-zinc-700 font-semibold">KL Divergence</td>
-        <td class="px-6 py-4 text-zinc-600">Distribution monitoring</td>
+        <td class="px-6 py-4">Drift Metric</td>
+        <td class="px-6 py-4">KL Divergence</td>
+        <td class="px-6 py-4">Distribution monitoring</td>
       </tr>
       <tr class="hover:bg-white/80 transition-colors">
-        <td class="px-6 py-4 font-black text-zinc-800 text-xs tracking-tighter uppercase">Database</td>
-        <td class="px-6 py-4 text-zinc-600 font-mono text-xs">SQLite</td>
-        <td class="px-6 py-4 text-zinc-600">Real-time inference logging</td>
+        <td class="px-6 py-4">Database</td>
+        <td class="px-6 py-4">SQLite</td>
+        <td class="px-6 py-4">Real-time inference logging</td>
       </tr>
       <tr class="hover:bg-white/80 transition-colors">
-        <td class="px-6 py-4 font-black text-zinc-800 text-xs tracking-tighter uppercase">Frontend</td>
-        <td class="px-6 py-4 text-zinc-700 font-semibold">Streamlit <span class="text-[10px] text-zinc-400">(multi-page)</span></td>
-        <td class="px-6 py-4 text-zinc-600">Interactive user interface</td>
+        <td class="px-6 py-4">Frontend</td>
+        <td class="px-6 py-4">Streamlit (multi-page)</td>
+        <td class="px-6 py-4">Interactive user interface</td>
       </tr>
       <tr class="hover:bg-white/80 transition-colors">
-        <td class="px-6 py-4 font-black text-zinc-800 text-xs tracking-tighter uppercase">Visualization</td>
-        <td class="px-6 py-4 text-zinc-600">Plotly</td>
-        <td class="px-6 py-4 text-zinc-600">Dynamic system charts</td>
+        <td class="px-6 py-4">Visualization</td>
+        <td class="px-6 py-4">Plotly</td>
+        <td class="px-6 py-4">Dynamic system charts</td>
       </tr>
       <tr class="hover:bg-white/80 transition-colors">
-        <td class="px-6 py-4 font-black text-zinc-800 text-xs tracking-tighter uppercase">Deployment</td>
-        <td class="px-6 py-4 text-zinc-600">HuggingFace Spaces</td>
-        <td class="px-6 py-4 text-zinc-500 text-xs italic">Cloud hosting service</td>
+        <td class="px-6 py-4">Deployment</td>
+        <td class="px-6 py-4">HuggingFace Spaces</td>
+        <td class="px-6 py-4">Cloud hosting service</td>
       </tr>
     </tbody>
   </table>
@@ -152,7 +150,9 @@ All numeric features (`Age`, `Height`, `Weight`, `Duration`, `Heart_Rate`, `Body
  
 The application is structured as a Streamlit multi-page app served from a single `app.py` entry point with two pages accessible via the sidebar.
  
-```
+```html
+<div class="mb-10 overflow-x-auto">
+<pre class="bg-zinc-900 text-zinc-300 p-6 rounded-2xl font-mono text-[10px] leading-relaxed shadow-xl">
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                            STREAMLIT APPLICATION                            │
 │                                                                             │
@@ -179,25 +179,30 @@ The application is structured as a Streamlit multi-page app served from a single
             │ • xgb_model.pkl (XGBoost Regressor)                 │
             │ • baseline_distribution.pkl (PT, Scaler, LE, Bins)  │
             └─────────────────────────────────────────────────────┘
-```
+</pre>
+</div>
+
+<h3 class="text-lg font-bold text-zinc-800 mb-4">
+  Artifact Storage and Presets (<code class="text-sm bg-zinc-100 px-1 rounded">baseline_distribution.pkl</code> and <code class="text-sm bg-zinc-100 px-1 rounded">xgb_model.pkl</code>)
+</h3>
 
 ### Artifact Storage and Presets (`baseline_distribution.pkl` and 'xgb_model.pkl')
  
 The baseline pickle file serves as the single source of truth for the monitoring system. It stores:
- 
+```
 - `transformers.powertransformer` — the `PowerTransformer` object transformed numeric features
 - `transformers.labelencoder` — the `LabelEncoder` object for Gender
 - `transformers.scaler` — the `StandardScaler` object for scaling all features
 - `distributions[feature].prob` — normalized histogram probabilities (baseline P)
 - `distributions[feature].bins` — histogram bin edges for each numeric feature
- 
+```
 This design ensures that the KL comparison always uses the same bins and the same scale, regardless of when or how many times the dashboard is opened.
  
 ---
 
 ## MLOps Pipeline: Detailed Flow
  
-### Inference Logging (Page 1)
+### **Inference Logging (Page 1)**
  
 Every time a user submits a prediction:
  
@@ -230,7 +235,7 @@ val_inversed = float(inversed_result[0, 6])
 log_to_db(gender_enc, age_pt, h_pt, w_pt, dur_pt, hr_pt, bt_pt, val_transformed)
 ```
 
-### Drift Computation (Page 2)
+### **Drift Computation (Page 2)**
  
 When the dashboard loads:
  
