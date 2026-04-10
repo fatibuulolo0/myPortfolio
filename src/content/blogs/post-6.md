@@ -238,7 +238,6 @@ log_to_db(gender_enc, age_pt, h_pt, w_pt, dur_pt, hr_pt, bt_pt, val_transformed)
 ### **Drift Computation (Page 2)**
  
 When the dashboard loads:
- 
 1. All rows from user_logs are fetched from SQLite.
 2. The dashboard maps the database columns (which are already in Box-Cox transformed scale) to the original feature names for consistency with the baseline.
 3. For each feature, the live data is binned using the baseline bin edges to produce distribution **Q**.
@@ -279,7 +278,6 @@ def compute_kl_scores(baseline, df_live_transformed):
 ### **Page 1 — User Prediction**
  
 The first page doubles as both a user-facing prediction tool and a data ingestion interface for the monitoring pipeline.
- 
 - **Biometric Input Form** — sliders and number inputs for all six numeric features plus Gender.
 - **Quick Stats Row** — live BMI calculation, estimated maximum heart rate, and current HR zone percentage. These auxiliary stats help users sanity-check their inputs before submitting.
 - **Prediction Result Card** — displays the predicted calorie output with burn rate (kcal/min) and intensity classification (Low / Moderate / High).
@@ -290,9 +288,7 @@ The first page doubles as both a user-facing prediction tool and a data ingestio
 <br>
 
 ### **Page 2 — MLOps Monitoring Dashboard**
- 
 The second page is the operational monitoring interface. It is designed to be interpretable at a glance.
- 
 **Summary Metric Row** — four top-level KPIs:
 - Total number of logged predictions
 - Average KL Divergence across all features
@@ -300,7 +296,6 @@ The second page is the operational monitoring interface. It is designed to be in
 - Overall system health status (Stable / Degrading / Alert)
  
 **Feature Drift Cards** — six cards, one per numeric feature, each displaying the feature's KL score and a color-coded badge:
- 
 <div class="my-8 overflow-hidden rounded-2xl border border-zinc-200 shadow-sm">
   <table class="w-full text-left text-sm border-collapse bg-white/50 backdrop-blur-sm">
     <thead class="bg-zinc-50 border-b border-zinc-200">
