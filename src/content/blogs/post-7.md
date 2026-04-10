@@ -3,7 +3,7 @@ title: "SaliencyMap: Modeling Human Visual Attention for Ad Creative Optimizatio
 description: "End-to-end saliency prediction pipeline from dataset preparation and VGG-16 encoder–decoder construction, through three-phase transfer learning training, to evaluation with KL-Divergence & AUC-Judd metrics."
 author: "Fati Buulolo"
 image:
-  url: "../../assets/images-014/display.png"
+  url: "../../assets/images-014/display_saliency.png"
   alt: "SaliencyMap: Modeling Human Visual Attention"
 pubDate: 2026-04-09
 tags:
