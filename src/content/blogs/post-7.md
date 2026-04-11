@@ -15,7 +15,7 @@ tags:
 
 Every advertisement competes for a fraction of a second of human attention. Visual saliency, defined as the property of image regions that instinctively capture the eye, is a fundamental determinant of whether a creative succeeds or is ignored. Understanding where users look before they consciously decide to engage is arguably more valuable than any post-click conversion metric.
 
-This project builds a deep learning saliency prediction model that, given any advertising image, outputs a spatially calibrated heatmap indicating the probability distribution of human eye fixations. The model is an **encoder–decoder network** built on a frozen **VGG-16** backbone trained on **ImageNet**, with a custom learned decoder trained against ground-truth fixation density maps from the [**SALICON**](https://www.salicon.net/) dataset.
+This project builds a deep learning saliency prediction model that, given any advertising image, outputs a spatially calibrated heatmap indicating the probability distribution of human eye fixations. The model is an **encoder–decoder network** built on a frozen **VGG-16** backbone trained on **ImageNet**, with a custom learned decoder trained against ground-truth fixation density maps from the **SALICON** dataset [[**CLick Here**]](https://www.salicon.net/).
 
 The final application is deployed as an interactive **Streamlit** web app on **Hugging Face Spaces**, enabling marketing teams and creatives to upload an ad and immediately receive actionable attention maps.
 
