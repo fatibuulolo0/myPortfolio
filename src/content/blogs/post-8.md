@@ -3,7 +3,7 @@ title: "Toko Lens: Multimodal E-Commerce Visual Search Engine"
 description: "End-to-end multimodal search system built on 3.4M+ scraped Tokopedia products, combining ViT-based image embeddings and BGE-M3 text embeddings inside FAISS indices (HNSW + IVF-PQ), served through a FastAPI backend and a plain HTML/JS frontend deployed on Hugging Face Spaces."
 author: "Fati Buulolo"
 image:
-  url: "../../assets/images-015/display.png"
+  url: "../../assets/images-015/display_tokolens.png"
   alt: "Toko Lens: Multimodal E-Commerce Visual Search Engine"
 pubDate: 2026-05-01
 tags:
