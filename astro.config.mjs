@@ -27,9 +27,9 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
 
-  experimental: {
-    svgo: true,
-  },
+ // experimental: {
+   // svgo: true,
+  //},
 });
 
 //swup theme variations:
