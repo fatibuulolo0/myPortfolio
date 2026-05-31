@@ -131,7 +131,7 @@ The backend is a **Python FastAPI** application deployed as a Hugging Face Space
 ```
 1. Decode uploaded image with Pillow
 2. Encode image with ViT → 768-d float32 vector
-3. Search image FAISS index (HNSW) → top-2000 candidate IDs
+3. Search image FAISS index (HNSW) → top-5000 candidate IDs
 4. If search text provided:
      Encode text with BGE-M3 → 1024-d float32 vector
      Search text FAISS index (IVF-PQ, nprobe=64) → top-5000 IDs
@@ -169,7 +169,7 @@ User uploads image
        │
        ▼
   FastAPI backend
-  ├─ ViT encodes image   ─────────────► HNSW index search → top-2000 visual matches
+  ├─ ViT encodes image   ─────────────► HNSW index search → top-5000 visual matches
   └─ BGE-M3 encodes text ─────────────► IVF-PQ index search → top-5000 text matches
                                                     │
                                          Intersection of both candidate sets
