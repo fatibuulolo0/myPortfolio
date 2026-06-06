@@ -128,7 +128,7 @@ const siteConfig: SiteConfig = {
     },
     about: {
         title: 'About',
-        text: 'Mathematics Graduate | Data Science & Deep Learning Enthusiast. Recently graduated from Universitas Negeri Medan, I possess a deep interest in transforming complex data into actionable insights. My focus is on mastering Data Science and Machine Learning to achieve my goal of becoming a professional in the Data and AI field. I am eager to start my journey by contributing to impactful projects and solving real-world problems through advanced analytics.',
+        text: 'Mathematics Graduate | Data & AI Enthusiast. Recently graduated from Universitas Negeri Medan, I possess a deep interest in transforming complex data into actionable insights. My focus is on mastering Data Science and Machine Learning to achieve my goal of becoming a professional in the Data and AI field. I am eager to start my journey by contributing to impactful projects and solving real-world problems through advanced analytics.',
     },
     contactInfo: {
         title: 'Contact',
