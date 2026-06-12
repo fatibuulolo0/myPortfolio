@@ -208,7 +208,7 @@ User uploads image
 </strong>
 
 <strong style="background-color:#c9b99a; padding: 2px 6px; border-radius: 4px; margin-left: 8px;">
-  <a href="https://huggingface.co/spaces/Viewww/image-retrieval-backend/tree/main">Backend Space</a>
+  <a href="https://huggingface.co/spaces/sole1l/tokolens-backend/tree/main">Backend Space</a>
 </strong>
 
 <strong style="background-color:#c9b99a; padding: 2px 6px; border-radius: 4px; margin-left: 8px;">
